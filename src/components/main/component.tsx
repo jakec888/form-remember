@@ -1,5 +1,41 @@
 import React, { Component } from "react";
 
+// import { getVisibleInputs } from "../../helpers/scrape";
+
+// import { browser, Tabs } from "webextension-polyfill-ts";
+
+// // // // //
+
+// // Scripts to execute in current tab
+// const scrollToTopScript = `window.scroll(0,0)`;
+// const scrollToBottomScript = `window.scroll(0,9999999)`;
+
+// /**
+//  * Executes a string of Javascript on the current tab
+//  * @param code The string of code to execute on the current tab
+//  */
+// function executeScript(code: string): void {
+//     // Query for the active tab in the current window
+//     browser.tabs
+//         .query({ active: true, currentWindow: true })
+//         .then((tabs: Tabs.Tab[]) => {
+//             // Pulls current tab from browser.tabs.query response
+//             const currentTab: Tabs.Tab | undefined = tabs[0];
+//             // Short circuits function execution is current tab isn't found
+//             if (!currentTab) {
+//                 return;
+//             }
+//             // Executes the script in the current tab
+//             browser.tabs
+//                 .executeScript(currentTab.id, {
+//                     code,
+//                 })
+//                 .then(() => {
+//                     console.log("Done Scrolling");
+//                 });
+//         });
+// }
+
 type MainState = {
     sample: string;
 };
@@ -17,35 +53,18 @@ export default class Main extends Component<{}, MainState> {
         console.log("Working!");
     }
 
-    isHidden = (ele: any) => {
-        var style = window.getComputedStyle(ele);
-        return (
-            style.display === "none" ||
-            style.visibility === "hidden" ||
-            ele.attributes["type"].value === "hidden"
-        );
-    };
-
     handleClick = () => {
         console.log("====================================");
         console.log("button clicked!");
         console.log("====================================");
 
-        console.log("all inputs:");
-        let all = document.getElementsByTagName("input");
-        console.log(all);
+        // console.log("document url");
+        // console.log(document.URL);
 
-        let my_input = [];
-
-        for (var i = 0, max = all.length; i < max; i++) {
-            if (this.isHidden(all[i]) === false) {
-                my_input.push(all[i]);
-            }
-        }
-
-        console.log("My input:");
-        console.log(my_input);
+        // let inputs = getVisibleInputs();
+        // console.log(inputs);
     };
+
     render() {
         return (
             <div className="row">
