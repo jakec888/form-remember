@@ -1,16 +1,15 @@
 {
   "manifest_version": 2,
-  "name": "RCR",
-  "description": "React, Chrome, and Redux example",
+  "name": "form-automation",
+  "description": "a form automation extension for Firefox and Chrome browsers",
   "version": "0.0.0.1",
   "background": {
-    "scripts": [
-      "event.js"
-    ],
+    "scripts": ["background.js"],
     "persistent": true
   },
   "browser_action": {
-    "default_title": "RCR Example",
+    "default_title": "Form Automation",
+    "default_icon": "icon-16.png",
     "default_popup": "popup.html"
   },
   "content_scripts": [

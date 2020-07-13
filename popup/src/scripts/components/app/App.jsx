@@ -9,7 +9,7 @@ class App extends Component {
   componentDidMount() {
     document.addEventListener('click', () => {
       this.props.dispatch({
-        type: 'ADD_COUNT'
+        type: 'ADD_COUNT',
       });
     });
   }
@@ -17,15 +17,16 @@ class App extends Component {
   render() {
     return (
       <div>
-        Click Count: {this.props.count}
+        <h1>This is the Popup!</h1>
+        <p>Click Count: {this.props.count}</p>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    count: state.count
+    count: state.count,
   };
 };
 

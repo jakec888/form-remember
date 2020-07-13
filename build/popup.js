@@ -11033,8 +11033,9 @@ App = function (_Component) {_inherits(App, _Component);
 
     {
       return (
-        _react2.default.createElement('div', null, 'Click Count: ',
-          this.props.count));
+        _react2.default.createElement('div', null,
+          _react2.default.createElement('h1', null, 'This is the Popup!'),
+          _react2.default.createElement('p', null, 'Click Count: ', this.props.count)));
 
 
     } }]);return App;}(_react.Component);
