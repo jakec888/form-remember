@@ -1,17 +1,20 @@
 const path = require('path');
 
 module.exports = {
-  entry: ['./content/index.js'],
+
+  entry: [
+    './content/src/scripts/index.js'
+  ],
 
   output: {
     filename: 'content.js',
     path: path.join(__dirname, '../', 'build'),
-    publicPath: '/',
+    publicPath: '/'
   },
 
   resolve: {
     extensions: ['.js', '.jsx', '.scss', '.json'],
-    modules: ['node_modules'],
+    modules: ['node_modules']
   },
 
   module: {
@@ -22,9 +25,9 @@ module.exports = {
         exclude: /(node_modules)/,
         include: path.join(__dirname, 'src'),
         query: {
-          presets: ['es2015', 'react'],
-        },
-      },
-    ],
-  },
+          presets: ['es2015', 'react']
+        }
+      }
+    ]
+  }
 };
