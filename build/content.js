@@ -76,12 +76,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_webextension_polyfill___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_webextension_polyfill__);
 
 
-__WEBPACK_IMPORTED_MODULE_0_webextension_polyfill___default.a.runtime.onMessage.addListener(request => {
-  console.log('====================================');
-  console.log('request:');
-  console.log(request);
-  console.log('====================================');
-  alert(request);
+__WEBPACK_IMPORTED_MODULE_0_webextension_polyfill___default.a.runtime.onMessage.addListener(async request => {
+  await console.log('====================================');
+  await console.log('request:');
+  await console.log(request);
+  await console.log('====================================');
+  // await alert(request);
+
+  await console.log('sending return sample');
+  let sample = await 1000;
+  return sample;
 });
 
 // const re = new RegExp('bear', 'gi');

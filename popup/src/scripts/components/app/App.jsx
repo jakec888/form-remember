@@ -23,20 +23,53 @@ class App extends Component {
     // console.log('====================================');
   }
 
-  sayHi() {
+  // sayHi() {
+  //   // browser.tabs.query({});
+
+  //   console.log('saying hi');
+
+  //   browser.tabs.query({currentWindow: true, active: true}).then(tabs => {
+  //     console.log('sending message');
+  //     browser.tabs.sendMessage(tabs[0].id, 'hello there!', this.saidHi);
+  //   });
+  // }
+
+  // saidHi() {
+  //   console.log('successfully said hi!');
+  // }
+
+  async sayHi() {
     // browser.tabs.query({});
 
     console.log('saying hi');
 
-    browser.tabs.query({currentWindow: true, active: true}).then(tabs => {
-      console.log('sending message');
-      browser.tabs.sendMessage(tabs[0].id, 'hello there!', this.saidHi);
-    });
+    let tabs = await browser.tabs.query({currentWindow: true, active: true});
+
+    let result = await browser.tabs.sendMessage(tabs[0].id, 'hello there!');
+
+    await this.saidHi(result);
   }
 
-  saidHi() {
+  saidHi(result) {
     console.log('successfully said hi!');
+    console.log(result);
   }
+
+  // sayHi() {
+  //   console.log('trying to retrieve ');
+
+  //   browser.tabs.query({currentWindow: true, active: true}).then(tabs => {
+  //     // browser.tabs.sendMessage(tabs[0].id, 'hello there!', this.saidHi);
+  //     browser.tabs.sendMessage(tabs[0].id, 'hello there!').then(result => {
+  //       this.saidHi(result);
+  //     });
+  //   });
+  // }
+
+  // saidHi(sample) {
+  //   console.log('sample:');
+  //   console.log(sample);
+  // }
 
   render() {
     return (

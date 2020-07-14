@@ -11038,27 +11038,60 @@ App = function (_Component) {_inherits(App, _Component);
       // console.log('Popup:');
       // console.log(all);
       // console.log('====================================');
-    } }, { key: 'sayHi', value: function sayHi()
+    }
 
-    {var _this3 = this;
+    // sayHi() {
+    //   // browser.tabs.query({});
+
+    //   console.log('saying hi');
+
+    //   browser.tabs.query({currentWindow: true, active: true}).then(tabs => {
+    //     console.log('sending message');
+    //     browser.tabs.sendMessage(tabs[0].id, 'hello there!', this.saidHi);
+    //   });
+    // }
+
+    // saidHi() {
+    //   console.log('successfully said hi!');
+    // }
+  }, { key: 'sayHi', value: async function sayHi()
+    {
       // browser.tabs.query({});
 
       console.log('saying hi');
 
-      _webextensionPolyfill2.default.tabs.query({ currentWindow: true, active: true }).then(function (tabs) {
-        console.log('sending message');
-        _webextensionPolyfill2.default.tabs.sendMessage(tabs[0].id, 'hello there!', _this3.saidHi);
-      });
-    } }, { key: 'saidHi', value: function saidHi()
+      var tabs = await _webextensionPolyfill2.default.tabs.query({ currentWindow: true, active: true });
 
-    {
+      var result = await _webextensionPolyfill2.default.tabs.sendMessage(tabs[0].id, 'hello there!');
+
+      await this.saidHi(result);
+    } }, { key: 'saidHi', value: function saidHi(
+
+    result) {
       console.log('successfully said hi!');
-    } }, { key: 'render', value: function render()
+      console.log(result);
+    }
 
-    {var _this4 = this;
+    // sayHi() {
+    //   console.log('trying to retrieve ');
+
+    //   browser.tabs.query({currentWindow: true, active: true}).then(tabs => {
+    //     // browser.tabs.sendMessage(tabs[0].id, 'hello there!', this.saidHi);
+    //     browser.tabs.sendMessage(tabs[0].id, 'hello there!').then(result => {
+    //       this.saidHi(result);
+    //     });
+    //   });
+    // }
+
+    // saidHi(sample) {
+    //   console.log('sample:');
+    //   console.log(sample);
+    // }
+  }, { key: 'render', value: function render()
+    {var _this3 = this;
       return (
         _react2.default.createElement('div', null,
-          _react2.default.createElement('button', { onClick: function onClick() {return _this4.sayHi();} }, 'Say Hi!')));
+          _react2.default.createElement('button', { onClick: function onClick() {return _this3.sayHi();} }, 'Say Hi!')));
 
 
 
