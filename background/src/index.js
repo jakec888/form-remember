@@ -6,5 +6,3 @@ import {wrapStore} from 'webext-redux';
 const store = createStore(rootReducer, {});
 
 wrapStore(store);
-
-console.log('background working!');

@@ -973,8 +973,6 @@ var store = (0, _redux.createStore)(_reducers2.default, {});
 
 (0, _webextRedux.wrapStore)(store);
 
-console.log('background working!');
-
 /***/ }),
 /* 13 */
 /***/ (function(module, exports, __webpack_require__) {

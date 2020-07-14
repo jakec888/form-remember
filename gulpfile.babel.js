@@ -50,12 +50,27 @@ gulp.task('copy-manifest', ['clean'], () => {
   return gulp.src('manifest.json').pipe(gulp.dest('./build'));
 });
 
+gulp.task('copy-icon-16', ['clean'], () => {
+  return gulp.src('icon-16.png').pipe(gulp.dest('./build'));
+});
+
+gulp.task('copy-icon-48', ['clean'], () => {
+  return gulp.src('icon-48.png').pipe(gulp.dest('./build'));
+});
+
+gulp.task('copy-icon-128', ['clean'], () => {
+  return gulp.src('icon-128.png').pipe(gulp.dest('./build'));
+});
+
 gulp.task('clean', cb => {
   rimraf('./build', cb);
 });
 
 gulp.task('build', [
   'copy-manifest',
+  'copy-icon-16',
+  'copy-icon-48',
+  'copy-icon-128',
   'popup-js',
   'popup-html',
   'background-js',

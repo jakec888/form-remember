@@ -12,6 +12,11 @@ class App extends Component {
         type: 'ADD_COUNT',
       });
     });
+    let all = document.getElementsByTagName('input');
+    console.log('====================================');
+    console.log('Popup:');
+    console.log(all);
+    console.log('====================================');
   }
 
   render() {

@@ -11004,7 +11004,7 @@ var _App = __webpack_require__(100);var _App2 = _interopRequireDefault(_App);fun
 var proxyStore = new _webextRedux.Store();
 
 var anchor = document.createElement('div');
-anchor.id = 'rcr-anchor';
+anchor.id = 'content-anchor';
 
 document.body.insertBefore(anchor, document.body.childNodes[0]);
 
@@ -11013,7 +11013,8 @@ proxyStore.ready().then(function () {
   _react2.default.createElement(_reactRedux.Provider, { store: proxyStore },
     _react2.default.createElement(_App2.default, null)),
 
-  document.getElementById('rcr-anchor'));
+  document.getElementById('content-anchor'));
+
 });
 
 /***/ }),
@@ -11021,39 +11022,78 @@ proxyStore.ready().then(function () {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });var _createClass = function () {function defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}return function (Constructor, protoProps, staticProps) {if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;};}();var _react = __webpack_require__(32);var _react2 = _interopRequireDefault(_react);
-var _reactRedux = __webpack_require__(84);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self, call) {if (!self) {throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call && (typeof call === "object" || typeof call === "function") ? call : self;}function _inherits(subClass, superClass) {if (typeof superClass !== "function" && superClass !== null) {throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;}var
-
-App = function (_Component) {_inherits(App, _Component);
-  function App(props) {_classCallCheck(this, App);return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this,
-    props));
-  }_createClass(App, [{ key: 'componentDidMount', value: function componentDidMount()
-
-    {var _this2 = this;
-      document.addEventListener('click', function () {
-        _this2.props.dispatch({
-          type: 'ADD_COUNT' });
-
-      });
-    } }, { key: 'render', value: function render()
-
-    {
-      return (
-        _react2.default.createElement('div', null,
-          _react2.default.createElement('h1', null, 'This is the Content!!'),
-          _react2.default.createElement('p', null, 'Click Count: ', this.props.count)));
+Object.defineProperty(exports, "__esModule", { value: true });exports.App = undefined;var _createClass = function () {function defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}return function (Constructor, protoProps, staticProps) {if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;};}();
 
 
-    } }]);return App;}(_react.Component);
 
 
-var mapStateToProps = function mapStateToProps(state) {
-  return {
-    count: state.count };
 
-};exports.default =
 
-(0, _reactRedux.connect)(mapStateToProps)(App);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _react = __webpack_require__(32);var _react2 = _interopRequireDefault(_react);
+var _reactRedux = __webpack_require__(84);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self, call) {if (!self) {throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call && (typeof call === "object" || typeof call === "function") ? call : self;}function _inherits(subClass, superClass) {if (typeof superClass !== "function" && superClass !== null) {throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;} // import React, {Component} from 'react';
+// import {connect} from 'react-redux';
+// class App extends Component {
+//   constructor(props) {
+//     super(props);
+//   }
+//   componentDidMount() {
+//     document.addEventListener('click', () => {
+//       this.props.dispatch({
+//         type: 'ADD_COUNT',
+//       });
+//     });
+//     // let all = document.getElementsByTagName('input');
+//     // console.log('====================================');
+//     // console.log(all);
+//     // console.log('====================================');
+//   }
+//   render() {
+//     return (
+//       <div>
+//         <h1>This is the Content!!</h1>
+//         <p>Click Count: {this.props.count}</p>
+//       </div>
+//     );
+//   }
+// }
+// const mapStateToProps = state => {
+//   return {
+//     count: state.count,
+//   };
+// };
+// export default connect(mapStateToProps)(App);
+var App = exports.App = function (_Component) {_inherits(App, _Component);function App() {_classCallCheck(this, App);return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));}_createClass(App, [{ key: 'componentDidMount', value: function componentDidMount() {var _this2 = this;document.addEventListener('click', function () {_this2.props.dispatch({ type: 'ADD_COUNT' });});var all = document.getElementsByTagName('input');console.log('====================================');console.log('Content:');console.log(all);console.log('====================================');} }, { key: 'render', value: function render() {return _react2.default.createElement('div', null, _react2.default.createElement('h1', null, 'This is the Popup!'), _react2.default.createElement('p', null, 'Click Count: ', this.props.count));} }]);return App;}(_react.Component);var mapStateToProps = function mapStateToProps(state) {return { count: state.count };};var mapDispatchToProps = {};exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(App);
 
 /***/ }),
 /* 101 */

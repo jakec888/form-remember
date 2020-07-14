@@ -11029,6 +11029,11 @@ App = function (_Component) {_inherits(App, _Component);
           type: 'ADD_COUNT' });
 
       });
+      var all = document.getElementsByTagName('input');
+      console.log('====================================');
+      console.log('Popup:');
+      console.log(all);
+      console.log('====================================');
     } }, { key: 'render', value: function render()
 
     {

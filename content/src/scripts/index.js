@@ -8,14 +8,15 @@ import App from './components/app/App';
 const proxyStore = new Store();
 
 const anchor = document.createElement('div');
-anchor.id = 'rcr-anchor';
+anchor.id = 'content-anchor';
 
 document.body.insertBefore(anchor, document.body.childNodes[0]);
 
 proxyStore.ready().then(() => {
   render(
     <Provider store={proxyStore}>
-      <App/>
-    </Provider>
-   , document.getElementById('rcr-anchor'));
+      <App />
+    </Provider>,
+    document.getElementById('content-anchor'),
+  );
 });
