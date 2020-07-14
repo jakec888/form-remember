@@ -1,46 +1,65 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
+// import {bindActionCreators} from 'redux';
 
-import {getAllVisibleInputs} from '../../../../../background/src/actions/inputs';
+import browser from 'webextension-polyfill';
 
 class App extends Component {
-  componentDidMount() {
-    console.log('popup opened');
-
-    this.props.getAllVisibleInputs();
-
-    console.log('all visible inputs finished!');
+  constructor(props) {
+    super(props);
   }
 
-  generatePopupInput() {
+  async componentDidMount() {
+    console.log('popup opened');
+
+    let visibleTextInputs = await this.getAllVisibleTextInputs();
+    console.log(visibleTextInputs);
+
+    await this.props.dispatch({
+      type: 'GET_ALL_VISIBLE_TEXT_INPUTS_NAME',
+      payload: {visibleTextInputs},
+    });
+  }
+
+  async getAllVisibleTextInputs() {
+    const tabs = await browser.tabs.query({currentWindow: true, active: true});
+
+    let visibleTextInputs = await browser.tabs.sendMessage(tabs[0].id, {
+      command: 'GET_ALL_VISIBLE_TEXT_INPUTS_NAME',
+    });
+
+    return visibleTextInputs;
+  }
+
+  // onHandleTextInputChange(text) {}
+
+  renderVisibleInput(input) {
     return (
       <div>
-        <h1>Visible Inputs</h1>
-        {this.props.listOfVisibleInputNames.map(input => {
-          return <div>{input}</div>;
-        })}
-        <h3>{/* label here */}</h3>
-        <input>{/* input here */}</input>
+        <h3>{input}</h3>
+        {/* <input onChange={this.onHandleTextInputChange}></input> */}
       </div>
     );
   }
+
   render() {
     return (
       <div>
-        <div>Hello World</div>
-        {this.renderAllInputs}
+        {this.props.visibleTextInputs.map(input => {
+          return this.renderVisibleInput(input);
+        })}
+
+        {/* {this.renderVisibleInput(this.props.visibleTextInputs[0])} */}
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  listOfVisibleInputNames: state.Inputs.listOfVisibleInputNames,
+  visibleTextInputs: state.Inputs.visibleTextInputs,
 });
 
-const mapDispatchToProps = dispatch => ({
-  getAllVisibleInputs: bindActionCreators(getAllVisibleInputs, dispatch),
-});
+// const mapDispatchToProps = dispatch => ({});
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+// export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

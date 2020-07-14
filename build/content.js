@@ -77,8 +77,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 __WEBPACK_IMPORTED_MODULE_0_webextension_polyfill___default.a.runtime.onMessage.addListener(async request => {
-  if (request.command == 'GET_ALL_VISIBLE_INPUT_NAMES') {
-    await console.log('GET_ALL_VISIBLE_INPUT_NAMES');
+  if (request.command == 'GET_ALL_VISIBLE_TEXT_INPUTS_NAME') {
+    await console.log('GET_ALL_VISIBLE_TEXT_INPUTS_NAME');
 
     let visibleInput = await [];
 
@@ -98,7 +98,8 @@ __WEBPACK_IMPORTED_MODULE_0_webextension_polyfill___default.a.runtime.onMessage.
       }
     }
 
-    await console.log(`Visible Inputs:\n${visibleInput}`);
+    await console.log(`Visible Inputs:`);
+    await console.log(visibleInput);
 
     return visibleInput;
   }

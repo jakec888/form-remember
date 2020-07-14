@@ -1,8 +1,8 @@
 import browser from 'webextension-polyfill';
 
 browser.runtime.onMessage.addListener(async request => {
-  if (request.command == 'GET_ALL_VISIBLE_INPUT_NAMES') {
-    await console.log('GET_ALL_VISIBLE_INPUT_NAMES');
+  if (request.command == 'GET_ALL_VISIBLE_TEXT_INPUTS_NAME') {
+    await console.log('GET_ALL_VISIBLE_TEXT_INPUTS_NAME');
 
     let visibleInput = await [];
 
@@ -22,7 +22,8 @@ browser.runtime.onMessage.addListener(async request => {
       }
     }
 
-    await console.log(`Visible Inputs:\n${visibleInput}`);
+    await console.log(`Visible Inputs:`);
+    await console.log(visibleInput);
 
     return visibleInput;
   }

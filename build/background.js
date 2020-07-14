@@ -1019,10 +1019,11 @@ var store = (0, _redux.createStore)(_rootReducers.rootReducer, initialState, (0,
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });var GET_ALL_VISIBLE_INPUT_NAMES = exports.GET_ALL_VISIBLE_INPUT_NAMES = 'GET_ALL_VISIBLE_INPUT_NAMES';
+Object.defineProperty(exports, "__esModule", { value: true });var GET_ALL_VISIBLE_TEXT_INPUTS_NAME = exports.GET_ALL_VISIBLE_TEXT_INPUTS_NAME =
+'GET_ALL_VISIBLE_TEXT_INPUTS_NAME';
 
-var GET_ALL_VISIBLE_INPUT_NAMES_SUCCESS = exports.GET_ALL_VISIBLE_INPUT_NAMES_SUCCESS =
-'GET_ALL_VISIBLE_INPUT_NAMES_SUCCESS';
+var GET_ALL_VISIBLE_TEXT_INPUTS_NAME_SUCCESS = exports.GET_ALL_VISIBLE_TEXT_INPUTS_NAME_SUCCESS =
+'GET_ALL_VISIBLE_TEXT_INPUTS_NAME_SUCCESS';
 
 /***/ }),
 /* 14 */
@@ -1054,18 +1055,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var _input = __webpack_require__(13);
 
 var initialState = {
-  visibleInputs: [] }; // import {
-//   GET_ALL_VISIBLE_INPUT_NAMES,
-//   GET_ALL_VISIBLE_INPUT_NAMES_SUCCESS,
+  visibleTextInputs: [] }; // import {
+//   GET_ALL_VISIBLE_TEXT_INPUTS_NAME,
+//   GET_ALL_VISIBLE_TEXT_INPUTS_NAME_SUCCESS,
 // } from '../constants/input';
 // const initialState = {
 //   visibleInputs: [],
 // };
 // export default (state = initialState, actions) => {
 //   switch (actions.type) {
-//     case GET_ALL_VISIBLE_INPUT_NAMES:
+//     case GET_ALL_VISIBLE_TEXT_INPUTS_NAME:
 //       return state;
-//     case GET_ALL_VISIBLE_INPUT_NAMES_SUCCESS:
+//     case GET_ALL_VISIBLE_TEXT_INPUTS_NAME_SUCCESS:
 //       return {
 //         listOfVisibleInputNames: actions.payload.listOfVisibleInputNames,
 //       };
@@ -1073,7 +1074,7 @@ var initialState = {
 //       return state;
 //   }
 // };
-exports.default = function () {var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;var actions = arguments[1];switch (actions.type) {case _input.GET_ALL_VISIBLE_INPUT_NAMES:return { listOfVisibleInputNames: actions.payload.listOfVisibleInputNames };default:return state;}};
+exports.default = function () {var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;var actions = arguments[1];switch (actions.type) {case _input.GET_ALL_VISIBLE_TEXT_INPUTS_NAME:return { visibleTextInputs: actions.payload.visibleTextInputs };default:return state;}};
 
 /***/ }),
 /* 15 */

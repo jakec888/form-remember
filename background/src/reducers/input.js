@@ -1,6 +1,6 @@
 // import {
-//   GET_ALL_VISIBLE_INPUT_NAMES,
-//   GET_ALL_VISIBLE_INPUT_NAMES_SUCCESS,
+//   GET_ALL_VISIBLE_TEXT_INPUTS_NAME,
+//   GET_ALL_VISIBLE_TEXT_INPUTS_NAME_SUCCESS,
 // } from '../constants/input';
 
 // const initialState = {
@@ -9,9 +9,9 @@
 
 // export default (state = initialState, actions) => {
 //   switch (actions.type) {
-//     case GET_ALL_VISIBLE_INPUT_NAMES:
+//     case GET_ALL_VISIBLE_TEXT_INPUTS_NAME:
 //       return state;
-//     case GET_ALL_VISIBLE_INPUT_NAMES_SUCCESS:
+//     case GET_ALL_VISIBLE_TEXT_INPUTS_NAME_SUCCESS:
 //       return {
 //         listOfVisibleInputNames: actions.payload.listOfVisibleInputNames,
 //       };
@@ -20,17 +20,17 @@
 //   }
 // };
 
-import {GET_ALL_VISIBLE_INPUT_NAMES} from '../constants/input';
+import {GET_ALL_VISIBLE_TEXT_INPUTS_NAME} from '../constants/input';
 
 const initialState = {
-  visibleInputs: [],
+  visibleTextInputs: [],
 };
 
 export default (state = initialState, actions) => {
   switch (actions.type) {
-    case GET_ALL_VISIBLE_INPUT_NAMES:
+    case GET_ALL_VISIBLE_TEXT_INPUTS_NAME:
       return {
-        listOfVisibleInputNames: actions.payload.listOfVisibleInputNames,
+        visibleTextInputs: actions.payload.visibleTextInputs,
       };
     default:
       return state;

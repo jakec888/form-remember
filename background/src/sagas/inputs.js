@@ -1,6 +1,6 @@
 // import {all, takeEvery, put, call} from 'redux-saga/effects';
 
-// import {GET_ALL_VISIBLE_INPUT_NAMES} from '../constants/input';
+// import {GET_ALL_VISIBLE_TEXT_INPUTS_NAME} from '../constants/input';
 // import {getAllVisibleInputsSuccess} from '../actions/inputs';
 
 // import browser from 'webextension-polyfill';
@@ -13,7 +13,7 @@
 
 // const onVisibleInputRequest = tabs => {
 //   let listOfVisibleInputNames = browser.tabs.sendMessage(tabs[0].id, {
-//     command: GET_ALL_VISIBLE_INPUT_NAMES,
+//     command: GET_ALL_VISIBLE_TEXT_INPUTS_NAME,
 //   });
 
 //   return listOfVisibleInputNames;
@@ -28,5 +28,5 @@
 // }
 
 // export default function* rootSaga() {
-//   yield all([takeEvery(GET_ALL_VISIBLE_INPUT_NAMES, getInputsAsync)]);
+//   yield all([takeEvery(GET_ALL_VISIBLE_TEXT_INPUTS_NAME, getInputsAsync)]);
 // }
