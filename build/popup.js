@@ -11015,97 +11015,53 @@ proxyStore.ready().then(function () {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });var _createClass = function () {function defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}return function (Constructor, protoProps, staticProps) {if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;};}();var _react = __webpack_require__(32);var _react2 = _interopRequireDefault(_react);
+Object.defineProperty(exports, "__esModule", { value: true });var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {return typeof obj;} : function (obj) {return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;};var _createClass = function () {function defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}return function (Constructor, protoProps, staticProps) {if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;};}();var _react = __webpack_require__(32);var _react2 = _interopRequireDefault(_react);
 var _reactRedux = __webpack_require__(84);
 var _webextensionPolyfill = __webpack_require__(241);var _webextensionPolyfill2 = _interopRequireDefault(_webextensionPolyfill);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self, call) {if (!self) {throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call && (typeof call === "object" || typeof call === "function") ? call : self;}function _inherits(subClass, superClass) {if (typeof superClass !== "function" && superClass !== null) {throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;}var
 
 App = function (_Component) {_inherits(App, _Component);
-  function App(props) {_classCallCheck(this, App);var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this,
+  function App(props) {_classCallCheck(this, App);return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this,
     props));
-    _this.saidHi = _this.saidHi.bind(_this);
-    _this.sayHi = _this.sayHi.bind(_this);return _this;
-  }_createClass(App, [{ key: 'componentDidMount', value: function componentDidMount()
+  }_createClass(App, [{ key: 'componentDidMount', value: async function componentDidMount()
 
-    {var _this2 = this;
-      console.log('popup opened');
-      document.addEventListener('click', function () {
-        _this2.props.dispatch({
-          type: 'ADD_COUNT' });
-
-      });
-      // let all = document.getElementsByTagName('input');
-      // console.log('====================================');
-      // console.log('Popup:');
-      // console.log(all);
-      // console.log('====================================');
-    }
-
-    // sayHi() {
-    //   // browser.tabs.query({});
-
-    //   console.log('saying hi');
-
-    //   browser.tabs.query({currentWindow: true, active: true}).then(tabs => {
-    //     console.log('sending message');
-    //     browser.tabs.sendMessage(tabs[0].id, 'hello there!', this.saidHi);
-    //   });
-    // }
-
-    // saidHi() {
-    //   console.log('successfully said hi!');
-    // }
-  }, { key: 'sayHi', value: async function sayHi()
     {
-      // browser.tabs.query({});
-
-      console.log('saying hi');
+      console.log('popup opened');
 
       var tabs = await _webextensionPolyfill2.default.tabs.query({ currentWindow: true, active: true });
 
-      var result = await _webextensionPolyfill2.default.tabs.sendMessage(tabs[0].id, 'hello there!');
+      var listOfVisibleInputNames = await _webextensionPolyfill2.default.tabs.sendMessage(tabs[0].id, {
+        command: 'GET_ALL_VISIBLE_INPUT_NAMES' });
 
-      await this.saidHi(result);
-    } }, { key: 'saidHi', value: function saidHi(
 
-    result) {
-      console.log('successfully said hi!');
-      console.log(result);
-    }
+      await console.log('listOfVisibleInputNames');
+      await console.log(listOfVisibleInputNames);
+      await console.log(typeof listOfVisibleInputNames === 'undefined' ? 'undefined' : _typeof(listOfVisibleInputNames));
+    } }, { key: 'generatePopupInput', value: function generatePopupInput()
 
-    // sayHi() {
-    //   console.log('trying to retrieve ');
-
-    //   browser.tabs.query({currentWindow: true, active: true}).then(tabs => {
-    //     // browser.tabs.sendMessage(tabs[0].id, 'hello there!', this.saidHi);
-    //     browser.tabs.sendMessage(tabs[0].id, 'hello there!').then(result => {
-    //       this.saidHi(result);
-    //     });
-    //   });
-    // }
-
-    // saidHi(sample) {
-    //   console.log('sample:');
-    //   console.log(sample);
-    // }
-  }, { key: 'render', value: function render()
-    {var _this3 = this;
+    {
       return (
         _react2.default.createElement('div', null,
-          _react2.default.createElement('button', { onClick: function onClick() {return _this3.sayHi();} }, 'Say Hi!')));
+          _react2.default.createElement('h1', null, 'Sample Input'),
+          _react2.default.createElement('h3', null),
+          _react2.default.createElement('input', null)));
 
 
+    } }, { key: 'render', value: function render()
+    {
+      return (
+        _react2.default.createElement('div', null,
+          _react2.default.createElement('div', null, 'Hello World'),
+          this.renderAllInputs));
 
 
     } }]);return App;}(_react.Component);
 
 
-var mapStateToProps = function mapStateToProps(state) {
-  return {
-    count: state.count };
+var mapStateToProps = function mapStateToProps(state) {return {};};
 
-};exports.default =
+var mapDispatchToProps = {};exports.default =
 
-(0, _reactRedux.connect)(mapStateToProps)(App);
+(0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(App);
 
 /***/ }),
 /* 101 */
