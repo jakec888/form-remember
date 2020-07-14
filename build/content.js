@@ -87,7 +87,7 @@ __WEBPACK_IMPORTED_MODULE_0_webextension_polyfill___default.a.runtime.onMessage.
     await console.log(all);
 
     for (let i = 0; i < all.length; i++) {
-      var style = await window.getComputedStyle(all[i]);
+      // var style = await window.getComputedStyle(all[i]);
       if (
         // style.display !== 'none' ||
         // style.visibility !== 'hidden' ||
@@ -103,14 +103,6 @@ __WEBPACK_IMPORTED_MODULE_0_webextension_polyfill___default.a.runtime.onMessage.
     return visibleInput;
   }
 });
-
-// const re = new RegExp('bear', 'gi');
-// const matches = document.documentElement.innerHTML.match(re) || [];
-
-// chrome.runtime.sendMessage({
-//   url: window.location.href,
-//   count: matches.length,
-// });
 
 
 /***/ }),

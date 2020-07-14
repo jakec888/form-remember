@@ -1,30 +1,25 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import browser from 'webextension-polyfill';
+import {bindActionCreators} from 'redux';
+
+import {getAllVisibleInputs} from '../../../../../background/src/actions/inputs';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  async componentDidMount() {
+  componentDidMount() {
     console.log('popup opened');
 
-    let tabs = await browser.tabs.query({currentWindow: true, active: true});
+    this.props.getAllVisibleInputs();
 
-    let listOfVisibleInputNames = await browser.tabs.sendMessage(tabs[0].id, {
-      command: 'GET_ALL_VISIBLE_INPUT_NAMES',
-    });
-
-    await console.log('listOfVisibleInputNames');
-    await console.log(listOfVisibleInputNames);
-    await console.log(typeof listOfVisibleInputNames);
+    console.log('all visible inputs finished!');
   }
 
   generatePopupInput() {
     return (
       <div>
-        <h1>Sample Input</h1>
+        <h1>Visible Inputs</h1>
+        {this.props.listOfVisibleInputNames.map(input => {
+          return <div>{input}</div>;
+        })}
         <h3>{/* label here */}</h3>
         <input>{/* input here */}</input>
       </div>
@@ -40,8 +35,12 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  listOfVisibleInputNames: state.Inputs.listOfVisibleInputNames,
+});
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = dispatch => ({
+  getAllVisibleInputs: bindActionCreators(getAllVisibleInputs, dispatch),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
