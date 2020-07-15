@@ -964,55 +964,18 @@ module.exports = g;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 var _redux = __webpack_require__(5);
 var _reduxThunk = __webpack_require__(25);var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
-
 var _rootReducers = __webpack_require__(15);
 
-var _webextRedux = __webpack_require__(32);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} // import {composeWithDevTools} from 'redux-devtools-extension';
-// import {createStore, applyMiddleware} from 'redux';
-// import createSagaMiddleware from 'redux-saga';
-// import thunk from 'redux-thunk';
-// import {composeWithDevTools} from 'redux-devtools-extension';
-// import {rootReducer} from './rootReducers';
-// import rootSagas from './rootSagas';
-// import {wrapStore} from 'webext-redux';
-// initialState = {};
-// const ReduxSaga = createSagaMiddleware();
-// const middlewares = [thunk, ReduxSaga];
-// const composeEnhancers = composeWithDevTools(applyMiddleware(...middlewares));
-// const store = createStore(rootReducer, initialState, composeEnhancers);
-// ReduxSaga.run(rootSagas);
-// wrapStore(store);
-var initialState = {}; // const middlewares = [thunk];
-// const composeEnhancers = composeWithDevTools(applyMiddleware(...middlewares));
-// const store = createStore(rootReducer, initialState, composeEnhancers);
-var store = (0, _redux.createStore)(_rootReducers.rootReducer, initialState, (0, _redux.applyMiddleware)(_reduxThunk2.default));(0, _webextRedux.wrapStore)(store);
+var _webextRedux = __webpack_require__(32);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+
+var initialState = {};
+
+var store = (0, _redux.createStore)(_rootReducers.rootReducer, initialState, (0, _redux.applyMiddleware)(_reduxThunk2.default));
+
+(0, _webextRedux.wrapStore)(store);
 
 /***/ }),
 /* 13 */
@@ -1022,59 +985,35 @@ var store = (0, _redux.createStore)(_rootReducers.rootReducer, initialState, (0,
 Object.defineProperty(exports, "__esModule", { value: true });var GET_ALL_VISIBLE_TEXT_INPUTS_NAME = exports.GET_ALL_VISIBLE_TEXT_INPUTS_NAME =
 'GET_ALL_VISIBLE_TEXT_INPUTS_NAME';
 
-var GET_ALL_VISIBLE_TEXT_INPUTS_NAME_SUCCESS = exports.GET_ALL_VISIBLE_TEXT_INPUTS_NAME_SUCCESS =
-'GET_ALL_VISIBLE_TEXT_INPUTS_NAME_SUCCESS';
+var GET_STORED_INPUTS = exports.GET_STORED_INPUTS = 'GET_STORED_INPUTS';
 
 /***/ }),
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", { value: true });var _input = __webpack_require__(13);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var _input = __webpack_require__(13);
 
 var initialState = {
-  visibleTextInputs: [] }; // import {
-//   GET_ALL_VISIBLE_TEXT_INPUTS_NAME,
-//   GET_ALL_VISIBLE_TEXT_INPUTS_NAME_SUCCESS,
-// } from '../constants/input';
-// const initialState = {
-//   visibleInputs: [],
-// };
-// export default (state = initialState, actions) => {
-//   switch (actions.type) {
-//     case GET_ALL_VISIBLE_TEXT_INPUTS_NAME:
-//       return state;
-//     case GET_ALL_VISIBLE_TEXT_INPUTS_NAME_SUCCESS:
-//       return {
-//         listOfVisibleInputNames: actions.payload.listOfVisibleInputNames,
-//       };
-//     default:
-//       return state;
-//   }
-// };
-exports.default = function () {var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;var actions = arguments[1];switch (actions.type) {case _input.GET_ALL_VISIBLE_TEXT_INPUTS_NAME:return { visibleTextInputs: actions.payload.visibleTextInputs };default:return state;}};
+  data: [],
+  visibleTextInputs: [] };exports.default =
+
+
+function () {var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;var actions = arguments[1];
+  switch (actions.type) {
+    case _input.GET_STORED_INPUTS:
+      return { data: actions.payload.data };
+    case _input.GET_ALL_VISIBLE_TEXT_INPUTS_NAME:
+      return {
+        visibleTextInputs: actions.payload.visibleTextInputs };
+
+    default:
+      return state;}
+
+};
 
 /***/ }),
 /* 15 */

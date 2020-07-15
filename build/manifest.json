@@ -3,7 +3,7 @@
   "name": "form-automation",
   "description": "a form automation extension for Firefox and Chrome browsers",
   "version": "0.0.0.1",
-  "permissions": ["tabs"],
+  "permissions": ["tabs", "storage", "unlimitedStorage"],
   "background": {
     "scripts": ["background.js"],
     "persistent": true

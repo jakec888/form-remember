@@ -11018,26 +11018,85 @@ proxyStore.ready().then(function () {
 Object.defineProperty(exports, "__esModule", { value: true });var _createClass = function () {function defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}return function (Constructor, protoProps, staticProps) {if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;};}();var _react = __webpack_require__(32);var _react2 = _interopRequireDefault(_react);
 var _reactRedux = __webpack_require__(84);
 
+var _webextensionPolyfill = __webpack_require__(241);var _webextensionPolyfill2 = _interopRequireDefault(_webextensionPolyfill);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self, call) {if (!self) {throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call && (typeof call === "object" || typeof call === "function") ? call : self;}function _inherits(subClass, superClass) {if (typeof superClass !== "function" && superClass !== null) {throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;}var
 
-var _webextensionPolyfill = __webpack_require__(241);var _webextensionPolyfill2 = _interopRequireDefault(_webextensionPolyfill);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self, call) {if (!self) {throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call && (typeof call === "object" || typeof call === "function") ? call : self;}function _inherits(subClass, superClass) {if (typeof superClass !== "function" && superClass !== null) {throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;} // import {bindActionCreators} from 'redux';
-var
 App = function (_Component) {_inherits(App, _Component);
   function App(props) {_classCallCheck(this, App);return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this,
     props));
   }_createClass(App, [{ key: 'componentDidMount', value: async function componentDidMount()
 
     {
-      console.log('popup opened');
+      console.log('opened popup');
 
-      var visibleTextInputs = await this.getAllVisibleTextInputs();
-      console.log(visibleTextInputs);
+      // create 'FormAutomation' hashmap if not in local storage
+      !localStorage.getItem('FormAutomation') &&
+      localStorage.setItem(
+      'FormAutomation',
+      JSON.stringify(Array.from(new Map())));
 
+
+      // get 'FormAutomation' hashmap from storage
+      var data = new Map(JSON.parse(localStorage.getItem('FormAutomation')));
+
+      // get all visible form inputs from page
+      var visibleTextInputsName = await this.getAllVisibleTextInputs();
+
+      // add visible form inputs that are not in the hashmap
+      await visibleTextInputsName.forEach(function (visibleInputName) {
+        !data.has(visibleInputName) && data.set(visibleInputName, '');
+      });
+
+      // update redux with current page's empty text input
       await this.props.dispatch({
-        type: 'GET_ALL_VISIBLE_TEXT_INPUTS_NAME',
-        payload: { visibleTextInputs: visibleTextInputs } });
+        type: 'GET_STORED_INPUTS',
+        payload: { data: data } });
 
-    } }, { key: 'getAllVisibleTextInputs', value: async function getAllVisibleTextInputs()
+    }
 
+    // async componentDidMount() {
+    //   console.log('extension clicked! opening popup...');
+
+    //   // get list of key/value form inputs
+    //   console.log('getting list of key/value form inputs');
+    //   let data = await JSON.parse(localStorage.getItem('FormAutomation'));
+    //   console.log(data);
+
+    //   !data && (await localStorage.setItem('FormAutomation', JSON.stringify([])));
+
+    //   this.props.dispatch({
+    //     type: 'GET_STORED_INPUTS',
+    //     payload: {data},
+    //   });
+
+    //   // get all visible form inputs from page
+    //   console.log('getting all visible form inputs from page');
+    //   let visibleTextInputs = await this.getAllVisibleTextInputs();
+    //   console.log(visibleTextInputs);
+
+    //   // add visible form inputs that are not in the list of key/value
+    //   console.log(
+    //     'adding visible form inputs that are not in the list of key/value',
+    //   );
+    //   await visibleTextInputs.forEach(visibleInput => {
+    //     console.log(
+    //       `checking if ${visibleInput} exists in FormAutomation storage`,
+    //     );
+    //     let exists =
+    //       data.filter(function (o) {
+    //         return o.hasOwnProperty(visibleInput);
+    //       }).length > 0;
+
+    //     console.log(`${visibleInput} ${exists}`);
+    //     !exists && data.push({[visibleInput.toString()]: ''});
+    //   });
+
+    //   // update key/value form inputs if new input names
+    //   console.log('updating key/value form inputs if new input names');
+    //   await localStorage.setItem('FormAutomation', JSON.stringify(data));
+    //   console.log('update key/value form inputs if new input names');
+    //   console.log(data);
+    // }
+  }, { key: 'getAllVisibleTextInputs', value: async function getAllVisibleTextInputs()
     {
       var tabs = await _webextensionPolyfill2.default.tabs.query({ currentWindow: true, active: true });
 
@@ -11051,20 +11110,28 @@ App = function (_Component) {_inherits(App, _Component);
     // onHandleTextInputChange(text) {}
   }, { key: 'renderVisibleInput', value: function renderVisibleInput(
     input) {
+      // console.log('====================================');
+      // console.log('Render:');
+      // console.log(this.props.data);
+      // console.log('====================================');
       return (
         _react2.default.createElement('div', null,
-          _react2.default.createElement('h3', null, input)));
+          _react2.default.createElement('h3', null, input.name),
+          _react2.default.createElement('h3', null, input.email)));
 
 
 
     } }, { key: 'render', value: function render()
 
-    {var _this2 = this;
+    {
+      console.log('====================================');
+      console.log('this.props.data:');
+      console.log(this.props.data);
+      console.log('====================================');
       return (
         _react2.default.createElement('div', null,
-          this.props.visibleTextInputs.map(function (input) {
-            return _this2.renderVisibleInput(input);
-          })));
+          _react2.default.createElement('h1', null, 'Hello World')));
+
 
 
 
@@ -11073,6 +11140,7 @@ App = function (_Component) {_inherits(App, _Component);
 
 
 var mapStateToProps = function mapStateToProps(state) {return {
+    data: state.Inputs.data,
     visibleTextInputs: state.Inputs.visibleTextInputs };};
 
 
