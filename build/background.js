@@ -982,10 +982,9 @@ var store = (0, _redux.createStore)(_rootReducers.rootReducer, initialState, (0,
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });var GET_ALL_VISIBLE_TEXT_INPUTS_NAME = exports.GET_ALL_VISIBLE_TEXT_INPUTS_NAME =
-'GET_ALL_VISIBLE_TEXT_INPUTS_NAME';
+Object.defineProperty(exports, "__esModule", { value: true });var GET_STORED_INPUTS = exports.GET_STORED_INPUTS = 'GET_STORED_INPUTS';
 
-var GET_STORED_INPUTS = exports.GET_STORED_INPUTS = 'GET_STORED_INPUTS';
+var UPDATE_VISIBLE_TEXT_INPUT = exports.UPDATE_VISIBLE_TEXT_INPUT = 'UPDATE_VISIBLE_TEXT_INPUT';
 
 /***/ }),
 /* 14 */
@@ -994,21 +993,24 @@ var GET_STORED_INPUTS = exports.GET_STORED_INPUTS = 'GET_STORED_INPUTS';
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });var _input = __webpack_require__(13);
 
-
-
-
 var initialState = {
   data: [],
-  visibleTextInputs: [] };exports.default =
+  visibleTextInputs: {} };exports.default =
 
 
 function () {var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;var actions = arguments[1];
   switch (actions.type) {
     case _input.GET_STORED_INPUTS:
-      return { data: actions.payload.data };
-    case _input.GET_ALL_VISIBLE_TEXT_INPUTS_NAME:
       return {
+        data: actions.payload.data,
         visibleTextInputs: actions.payload.visibleTextInputs };
+
+    case _input.UPDATE_VISIBLE_TEXT_INPUT:
+      console.log('UPDATE_VISIBLE_TEXT_INPUT');
+      console.log(actions);
+      console.log(actions.payload.visibleTextInputs);
+      return Object.assign({}, state, {
+        visibleTextInputs: actions.payload.visibleTextInputs });
 
     default:
       return state;}

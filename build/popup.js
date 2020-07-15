@@ -11039,64 +11039,20 @@ App = function (_Component) {_inherits(App, _Component);
       var data = new Map(JSON.parse(localStorage.getItem('FormAutomation')));
 
       // get all visible form inputs from page
-      var visibleTextInputsName = await this.getAllVisibleTextInputs();
+      var visibleTextInputs = await this.getAllVisibleTextInputs();
 
       // add visible form inputs that are not in the hashmap
-      await visibleTextInputsName.forEach(function (visibleInputName) {
-        !data.has(visibleInputName) && data.set(visibleInputName, '');
+      await Object.keys(visibleTextInputs).forEach(function (name) {
+        data.has(name) && (visibleTextInputs[name] = data.get(name));
       });
 
       // update redux with current page's empty text input
       await this.props.dispatch({
         type: 'GET_STORED_INPUTS',
-        payload: { data: data } });
+        payload: { data: data, visibleTextInputs: visibleTextInputs } });
 
-    }
+    } }, { key: 'getAllVisibleTextInputs', value: async function getAllVisibleTextInputs()
 
-    // async componentDidMount() {
-    //   console.log('extension clicked! opening popup...');
-
-    //   // get list of key/value form inputs
-    //   console.log('getting list of key/value form inputs');
-    //   let data = await JSON.parse(localStorage.getItem('FormAutomation'));
-    //   console.log(data);
-
-    //   !data && (await localStorage.setItem('FormAutomation', JSON.stringify([])));
-
-    //   this.props.dispatch({
-    //     type: 'GET_STORED_INPUTS',
-    //     payload: {data},
-    //   });
-
-    //   // get all visible form inputs from page
-    //   console.log('getting all visible form inputs from page');
-    //   let visibleTextInputs = await this.getAllVisibleTextInputs();
-    //   console.log(visibleTextInputs);
-
-    //   // add visible form inputs that are not in the list of key/value
-    //   console.log(
-    //     'adding visible form inputs that are not in the list of key/value',
-    //   );
-    //   await visibleTextInputs.forEach(visibleInput => {
-    //     console.log(
-    //       `checking if ${visibleInput} exists in FormAutomation storage`,
-    //     );
-    //     let exists =
-    //       data.filter(function (o) {
-    //         return o.hasOwnProperty(visibleInput);
-    //       }).length > 0;
-
-    //     console.log(`${visibleInput} ${exists}`);
-    //     !exists && data.push({[visibleInput.toString()]: ''});
-    //   });
-
-    //   // update key/value form inputs if new input names
-    //   console.log('updating key/value form inputs if new input names');
-    //   await localStorage.setItem('FormAutomation', JSON.stringify(data));
-    //   console.log('update key/value form inputs if new input names');
-    //   console.log(data);
-    // }
-  }, { key: 'getAllVisibleTextInputs', value: async function getAllVisibleTextInputs()
     {
       var tabs = await _webextensionPolyfill2.default.tabs.query({ currentWindow: true, active: true });
 
@@ -11105,32 +11061,61 @@ App = function (_Component) {_inherits(App, _Component);
 
 
       return visibleTextInputs;
-    }
+    } }, { key: 'onHandleTextInputChange', value: function onHandleTextInputChange(
 
-    // onHandleTextInputChange(text) {}
-  }, { key: 'renderVisibleInput', value: function renderVisibleInput(
-    input) {
-      // console.log('====================================');
-      // console.log('Render:');
-      // console.log(this.props.data);
-      // console.log('====================================');
+    event, key) {
+      var updatedVisibleTextInputs = this.props.visibleTextInputs;
+      updatedVisibleTextInputs[key] = event.target.value;
+
+      this.props.dispatch({
+        type: 'UPDATE_VISIBLE_TEXT_INPUT',
+        payload: { visibleTextInputs: updatedVisibleTextInputs } });
+
+    } }, { key: 'renderVisibleInput', value: function renderVisibleInput(
+
+    key, value) {var _this2 = this;
       return (
-        _react2.default.createElement('div', null,
-          _react2.default.createElement('h3', null, input.name),
-          _react2.default.createElement('h3', null, input.email)));
+        _react2.default.createElement('div', { key: key },
+          _react2.default.createElement('h3', null, key),
+          _react2.default.createElement('input', {
+            onChange: function onChange(event) {
+              _this2.onHandleTextInputChange(event, key);
+            },
+            value: value })));
 
 
 
+    } }, { key: 'handleSubmission', value: function handleSubmission(
+
+    event) {
+      event.preventDefault();
+      console.log('submitting');
+      console.log(this.props.data);
+      console.log(this.props.visibleTextInputs);
+
+      // save updated hashmap to local storage
+      // localStorage.setItem(
+      //   'FormAutomation',
+      //   JSON.stringify(Array.from(this.props.data)),
+      // );
     } }, { key: 'render', value: function render()
 
-    {
-      console.log('====================================');
-      console.log('this.props.data:');
-      console.log(this.props.data);
-      console.log('====================================');
+    {var _this3 = this;
       return (
         _react2.default.createElement('div', null,
-          _react2.default.createElement('h1', null, 'Hello World')));
+          _react2.default.createElement('h1', null, 'Hello World'),
+
+          _react2.default.createElement('form', {
+              onSubmit: function onSubmit(event) {
+                _this3.handleSubmission(event);
+              } },
+            Object.keys(this.props.visibleTextInputs).map(function (key) {
+              return _this3.renderVisibleInput(
+              key,
+              _this3.props.visibleTextInputs[key]);
+
+            }),
+            _react2.default.createElement('button', { variant: 'primary', type: 'submit' }, 'Submit'))));
 
 
 

@@ -22,63 +22,19 @@ class App extends Component {
     let data = new Map(JSON.parse(localStorage.getItem('FormAutomation')));
 
     // get all visible form inputs from page
-    let visibleTextInputsName = await this.getAllVisibleTextInputs();
+    let visibleTextInputs = await this.getAllVisibleTextInputs();
 
     // add visible form inputs that are not in the hashmap
-    await visibleTextInputsName.forEach(visibleInputName => {
-      !data.has(visibleInputName) && data.set(visibleInputName, '');
+    await Object.keys(visibleTextInputs).forEach(name => {
+      data.has(name) && (visibleTextInputs[name] = data.get(name));
     });
 
     // update redux with current page's empty text input
     await this.props.dispatch({
       type: 'GET_STORED_INPUTS',
-      payload: {data},
+      payload: {data, visibleTextInputs},
     });
   }
-
-  // async componentDidMount() {
-  //   console.log('extension clicked! opening popup...');
-
-  //   // get list of key/value form inputs
-  //   console.log('getting list of key/value form inputs');
-  //   let data = await JSON.parse(localStorage.getItem('FormAutomation'));
-  //   console.log(data);
-
-  //   !data && (await localStorage.setItem('FormAutomation', JSON.stringify([])));
-
-  //   this.props.dispatch({
-  //     type: 'GET_STORED_INPUTS',
-  //     payload: {data},
-  //   });
-
-  //   // get all visible form inputs from page
-  //   console.log('getting all visible form inputs from page');
-  //   let visibleTextInputs = await this.getAllVisibleTextInputs();
-  //   console.log(visibleTextInputs);
-
-  //   // add visible form inputs that are not in the list of key/value
-  //   console.log(
-  //     'adding visible form inputs that are not in the list of key/value',
-  //   );
-  //   await visibleTextInputs.forEach(visibleInput => {
-  //     console.log(
-  //       `checking if ${visibleInput} exists in FormAutomation storage`,
-  //     );
-  //     let exists =
-  //       data.filter(function (o) {
-  //         return o.hasOwnProperty(visibleInput);
-  //       }).length > 0;
-
-  //     console.log(`${visibleInput} ${exists}`);
-  //     !exists && data.push({[visibleInput.toString()]: ''});
-  //   });
-
-  //   // update key/value form inputs if new input names
-  //   console.log('updating key/value form inputs if new input names');
-  //   await localStorage.setItem('FormAutomation', JSON.stringify(data));
-  //   console.log('update key/value form inputs if new input names');
-  //   console.log(data);
-  // }
 
   async getAllVisibleTextInputs() {
     const tabs = await browser.tabs.query({currentWindow: true, active: true});
@@ -90,33 +46,62 @@ class App extends Component {
     return visibleTextInputs;
   }
 
-  // onHandleTextInputChange(text) {}
+  onHandleTextInputChange(event, key) {
+    let updatedVisibleTextInputs = this.props.visibleTextInputs;
+    updatedVisibleTextInputs[key] = event.target.value;
 
-  renderVisibleInput(input) {
-    // console.log('====================================');
-    // console.log('Render:');
-    // console.log(this.props.data);
-    // console.log('====================================');
+    this.props.dispatch({
+      type: 'UPDATE_VISIBLE_TEXT_INPUT',
+      payload: {visibleTextInputs: updatedVisibleTextInputs},
+    });
+  }
+
+  renderVisibleInput(key, value) {
     return (
-      <div>
-        <h3>{input.name}</h3>
-        <h3>{input.email}</h3>
-        {/* <input onChange={this.onHandleTextInputChange}></input> */}
+      <div key={key}>
+        <h3>{key}</h3>
+        <input
+          onChange={event => {
+            this.onHandleTextInputChange(event, key);
+          }}
+          value={value}
+        />
       </div>
     );
   }
 
-  render() {
-    console.log('====================================');
-    console.log('this.props.data:');
+  handleSubmission(event) {
+    event.preventDefault();
+    console.log('submitting');
     console.log(this.props.data);
-    console.log('====================================');
+    console.log(this.props.visibleTextInputs);
+
+    // save updated hashmap to local storage
+    // localStorage.setItem(
+    //   'FormAutomation',
+    //   JSON.stringify(Array.from(this.props.data)),
+    // );
+  }
+
+  render() {
     return (
       <div>
         <h1>Hello World</h1>
-        {/* {this.props.data.map(input => {
-          return this.renderVisibleInput(input);
-        })} */}
+
+        <form
+          onSubmit={event => {
+            this.handleSubmission(event);
+          }}>
+          {Object.keys(this.props.visibleTextInputs).map(key => {
+            return this.renderVisibleInput(
+              key,
+              this.props.visibleTextInputs[key],
+            );
+          })}
+          <button variant="primary" type="submit">
+            Submit
+          </button>
+        </form>
       </div>
     );
   }

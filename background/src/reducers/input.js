@@ -1,21 +1,24 @@
-import {
-  GET_ALL_VISIBLE_TEXT_INPUTS_NAME,
-  GET_STORED_INPUTS,
-} from '../constants/input';
+import {GET_STORED_INPUTS, UPDATE_VISIBLE_TEXT_INPUT} from '../constants/input';
 
 const initialState = {
   data: [],
-  visibleTextInputs: [],
+  visibleTextInputs: {},
 };
 
 export default (state = initialState, actions) => {
   switch (actions.type) {
     case GET_STORED_INPUTS:
-      return {data: actions.payload.data};
-    case GET_ALL_VISIBLE_TEXT_INPUTS_NAME:
       return {
+        data: actions.payload.data,
         visibleTextInputs: actions.payload.visibleTextInputs,
       };
+    case UPDATE_VISIBLE_TEXT_INPUT:
+      console.log('UPDATE_VISIBLE_TEXT_INPUT');
+      console.log(actions);
+      console.log(actions.payload.visibleTextInputs);
+      return Object.assign({}, state, {
+        visibleTextInputs: actions.payload.visibleTextInputs,
+      });
     default:
       return state;
   }
