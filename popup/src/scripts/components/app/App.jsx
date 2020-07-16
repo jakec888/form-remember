@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 
 import browser from 'webextension-polyfill';
 
+import './App.css';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -81,11 +83,14 @@ class App extends Component {
     //   'FormAutomation',
     //   JSON.stringify(Array.from(this.props.data)),
     // );
+
+    console.log('closing!');
+    window.close();
   }
 
   render() {
     return (
-      <div>
+      <div className="popup-container">
         <h1>Hello World</h1>
 
         <form

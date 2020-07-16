@@ -1006,9 +1006,6 @@ function () {var state = arguments.length > 0 && arguments[0] !== undefined ? ar
         visibleTextInputs: actions.payload.visibleTextInputs };
 
     case _input.UPDATE_VISIBLE_TEXT_INPUT:
-      console.log('UPDATE_VISIBLE_TEXT_INPUT');
-      console.log(actions);
-      console.log(actions.payload.visibleTextInputs);
       return Object.assign({}, state, {
         visibleTextInputs: actions.payload.visibleTextInputs });
 

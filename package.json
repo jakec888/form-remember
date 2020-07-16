@@ -12,6 +12,8 @@
   },
   "author": "Jake C",
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
     "react": "^15.5.0",
     "react-dom": "^15.5.0",
     "react-redux": "^4.0.0",

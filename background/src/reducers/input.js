@@ -13,9 +13,6 @@ export default (state = initialState, actions) => {
         visibleTextInputs: actions.payload.visibleTextInputs,
       };
     case UPDATE_VISIBLE_TEXT_INPUT:
-      console.log('UPDATE_VISIBLE_TEXT_INPUT');
-      console.log(actions);
-      console.log(actions.payload.visibleTextInputs);
       return Object.assign({}, state, {
         visibleTextInputs: actions.payload.visibleTextInputs,
       });
