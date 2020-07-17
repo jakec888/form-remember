@@ -42921,7 +42921,6 @@ var _core = __webpack_require__(412);function _interopRequireDefault(obj) {retur
 
 
 
-
 var theme = (0, _core.createMuiTheme)({
   palette: {
     primary: {
@@ -42956,8 +42955,12 @@ App = function (_Component) {_inherits(App, _Component);
 
       // add visible form inputs that are not in the hashmap
       await Object.keys(visibleTextInputs).forEach(function (name) {
+        // if data has a visible text input name, update visible input with the name's value
         data.has(name) && (visibleTextInputs[name] = data.get(name));
       });
+
+      // if hashmap has the name's value, auto populate the form
+      await this.postAllVisibleTextInputs(data, visibleTextInputs);
 
       // update redux with current page's empty text input
       await this.props.dispatch({
@@ -42967,6 +42970,16 @@ App = function (_Component) {_inherits(App, _Component);
 
       // render up
       window.scrollTo(0, 0);
+    } }, { key: 'postAllVisibleTextInputs', value: async function postAllVisibleTextInputs(
+
+    data, visibleTextInputs) {
+      var tabs = await _webextensionPolyfill2.default.tabs.query({ currentWindow: true, active: true });
+
+      await _webextensionPolyfill2.default.tabs.sendMessage(tabs[0].id, {
+        command: 'POST_ALL_VISIBLE_TEXT_INPUTS_NAME',
+        data: data,
+        visibleTextInputs: visibleTextInputs });
+
     } }, { key: 'getAllVisibleTextInputs', value: async function getAllVisibleTextInputs()
 
     {
@@ -43007,25 +43020,37 @@ App = function (_Component) {_inherits(App, _Component);
           } }));
 
 
-    } }, { key: 'handleSubmission', value: function handleSubmission(
+    } }, { key: 'handleSubmission', value: async function handleSubmission(
 
-    event) {
+    event) {var _this3 = this;
       event.preventDefault();
       console.log('submitting');
       console.log(this.props.data);
       console.log(this.props.visibleTextInputs);
 
+      // add visible input values in the hashmap
+      var updatedData = this.props.data;
+      Object.keys(this.props.visibleTextInputs).forEach(function (name) {
+        updatedData.set(name, _this3.props.visibleTextInputs[name]);
+      });
+
+      // auto populate form
+      await this.postAllVisibleTextInputs(
+      updatedData,
+      this.props.visibleTextInputs);
+
+
       // save updated hashmap to local storage
-      // localStorage.setItem(
-      //   'FormAutomation',
-      //   JSON.stringify(Array.from(this.props.data)),
-      // );
+      localStorage.setItem(
+      'FormAutomation',
+      JSON.stringify(Array.from(updatedData)));
+
 
       console.log('closing!');
       window.close();
     } }, { key: 'render', value: function render()
 
-    {var _this3 = this;
+    {var _this4 = this;
       return (
         _react2.default.createElement(_react2.default.Fragment, null,
           _react2.default.createElement(_core.CssBaseline, null),
@@ -43036,12 +43061,12 @@ App = function (_Component) {_inherits(App, _Component);
 
               _react2.default.createElement('form', {
                   onSubmit: function onSubmit(event) {
-                    _this3.handleSubmission(event);
+                    _this4.handleSubmission(event);
                   } },
                 Object.keys(this.props.visibleTextInputs).map(function (key, index) {
-                  return _this3.renderVisibleInput(
+                  return _this4.renderVisibleInput(
                   key,
-                  _this3.props.visibleTextInputs[key],
+                  _this4.props.visibleTextInputs[key],
                   index);
 
                 }),
@@ -43056,12 +43081,7 @@ App = function (_Component) {_inherits(App, _Component);
 
 
               _react2.default.createElement(_core.CardContent, null,
-                _react2.default.createElement(_core.Typography, {
-                    variant: 'h6',
-                    color: 'primary'
-                    // style={{margin: 0}}
-                  }, 'Keyboard Shortcut'),
-
+                _react2.default.createElement(_core.Typography, { variant: 'h6', color: 'primary' }, 'Keyboard Shortcut'),
 
 
                 _react2.default.createElement(_core.Box, {

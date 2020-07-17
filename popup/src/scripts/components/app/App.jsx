@@ -9,7 +9,6 @@ import {
   ThemeProvider,
   Grid,
   CardContent,
-  Paper,
   Box,
   Typography,
   TextField,
@@ -50,8 +49,12 @@ class App extends Component {
 
     // add visible form inputs that are not in the hashmap
     await Object.keys(visibleTextInputs).forEach(name => {
+      // if data has a visible text input name, update visible input with the name's value
       data.has(name) && (visibleTextInputs[name] = data.get(name));
     });
+
+    // if hashmap has the name's value, auto populate the form
+    await this.postAllVisibleTextInputs(data, visibleTextInputs);
 
     // update redux with current page's empty text input
     await this.props.dispatch({
@@ -61,6 +64,16 @@ class App extends Component {
 
     // render up
     window.scrollTo(0, 0);
+  }
+
+  async postAllVisibleTextInputs(data, visibleTextInputs) {
+    const tabs = await browser.tabs.query({currentWindow: true, active: true});
+
+    await browser.tabs.sendMessage(tabs[0].id, {
+      command: 'POST_ALL_VISIBLE_TEXT_INPUTS_NAME',
+      data,
+      visibleTextInputs,
+    });
   }
 
   async getAllVisibleTextInputs() {
@@ -103,17 +116,29 @@ class App extends Component {
     );
   }
 
-  handleSubmission(event) {
+  async handleSubmission(event) {
     event.preventDefault();
     console.log('submitting');
     console.log(this.props.data);
     console.log(this.props.visibleTextInputs);
 
+    // add visible input values in the hashmap
+    let updatedData = this.props.data;
+    Object.keys(this.props.visibleTextInputs).forEach(name => {
+      updatedData.set(name, this.props.visibleTextInputs[name]);
+    });
+
+    // auto populate form
+    await this.postAllVisibleTextInputs(
+      updatedData,
+      this.props.visibleTextInputs,
+    );
+
     // save updated hashmap to local storage
-    // localStorage.setItem(
-    //   'FormAutomation',
-    //   JSON.stringify(Array.from(this.props.data)),
-    // );
+    localStorage.setItem(
+      'FormAutomation',
+      JSON.stringify(Array.from(updatedData)),
+    );
 
     console.log('closing!');
     window.close();
@@ -150,14 +175,9 @@ class App extends Component {
               </Button>
             </form>
             <CardContent>
-              <Typography
-                variant="h6"
-                color="primary"
-                // style={{margin: 0}}
-              >
+              <Typography variant="h6" color="primary">
                 Keyboard Shortcut
               </Typography>
-              {/* <Paper elevation={3}>Cmd + Shift + O</Paper> */}
               <Box
                 color="secondary"
                 borderColor="secondary"

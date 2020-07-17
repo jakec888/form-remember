@@ -4,9 +4,9 @@ automate autofill text inputs on specific pages
 
 # Todo
 
-- create hashmap to insert input tag names with the text value
-- add keyboard shortcut (done)
-- material ui (done)
+- create hashmap to insert input tag names with the text value √
+- add keyboard shortcut √
+- material ui √
 - import hashmap as a json file
 - export hashmap into json file
 - publish
