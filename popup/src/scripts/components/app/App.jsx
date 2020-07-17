@@ -144,6 +144,17 @@ class App extends Component {
     window.close();
   }
 
+  exportToJSON() {
+    const element = document.createElement('a');
+    const file = new Blob([JSON.stringify(Array.from(this.props.data))], {
+      type: 'text/json',
+    });
+    element.href = URL.createObjectURL(file);
+    element.download = `${new Date().toISOString()}.json`;
+    document.body.appendChild(element);
+    element.click();
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -186,6 +197,30 @@ class App extends Component {
                 style={{display: 'inline-block', margin: 0}}>
                 Cmd + Shift + O
               </Box>
+            </CardContent>
+
+            <CardContent
+              display="flex"
+              flexDirection="row"
+              justifyContent="space-evenly">
+              <Grid item xs={6}>
+                <Button color="secondary">
+                  <Typography variant="caption" display="block">
+                    Import
+                  </Typography>
+                </Button>
+              </Grid>
+              <Grid item xs={6}>
+                <Button
+                  color="secondary"
+                  onClick={() => {
+                    this.exportToJSON();
+                  }}>
+                  <Typography variant="caption" display="block">
+                    Export
+                  </Typography>
+                </Button>
+              </Grid>
             </CardContent>
           </Grid>
         </ThemeProvider>

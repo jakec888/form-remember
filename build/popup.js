@@ -43048,6 +43048,17 @@ App = function (_Component) {_inherits(App, _Component);
 
       console.log('closing!');
       window.close();
+    } }, { key: 'exportToJSON', value: function exportToJSON()
+
+    {
+      var element = document.createElement('a');
+      var file = new Blob([JSON.stringify(Array.from(this.props.data))], {
+        type: 'text/json' });
+
+      element.href = URL.createObjectURL(file);
+      element.download = new Date().toISOString() + '.json';
+      document.body.appendChild(element);
+      element.click();
     } }, { key: 'render', value: function render()
 
     {var _this4 = this;
@@ -43089,7 +43100,31 @@ App = function (_Component) {_inherits(App, _Component);
                     borderColor: 'secondary',
                     border: 1,
                     borderRadius: 'borderRadius',
-                    style: { display: 'inline-block', margin: 0 } }, 'Cmd + Shift + O'))))));
+                    style: { display: 'inline-block', margin: 0 } }, 'Cmd + Shift + O')),
+
+
+
+
+              _react2.default.createElement(_core.CardContent, {
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'space-evenly' },
+                _react2.default.createElement(_core.Grid, { item: true, xs: 6 },
+                  _react2.default.createElement(_core.Button, { color: 'secondary' },
+                    _react2.default.createElement(_core.Typography, { variant: 'caption', display: 'block' }, 'Import'))),
+
+
+
+
+                _react2.default.createElement(_core.Grid, { item: true, xs: 6 },
+                  _react2.default.createElement(_core.Button, {
+                      color: 'secondary',
+                      onClick: function onClick() {
+                        _this4.exportToJSON();
+                      } },
+                    _react2.default.createElement(_core.Typography, { variant: 'caption', display: 'block' }, 'Export'))))))));
+
+
 
 
 

@@ -8,5 +8,5 @@ automate autofill text inputs on specific pages
 - add keyboard shortcut √
 - material ui √
 - import hashmap as a json file
-- export hashmap into json file
+- export hashmap into json file √
 - publish
