@@ -5,7 +5,7 @@ automate autofill text inputs on specific pages
 # Todo
 
 - create hashmap to insert input tag names with the text value
-- material ui
+- material ui (done)
 - import hashmap as a json file
 - export hashmap into json file
 - publish

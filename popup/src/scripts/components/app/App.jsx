@@ -89,7 +89,7 @@ class App extends Component {
         margin="normal"
         id="email"
         name={key}
-        label={key}
+        label={`${key.charAt(0).toUpperCase()}${key.slice(1)}`}
         key={key}
         value={value}
         autoFocus={index === 0 ? true : false}
@@ -130,10 +130,9 @@ class App extends Component {
               Form Automation
             </Typography>
             <form
-              // onSubmit={event => {
-              //   this.handleSubmission(event);
-              // }}
-              noValidate>
+              onSubmit={event => {
+                this.handleSubmission(event);
+              }}>
               {Object.keys(this.props.visibleTextInputs).map((key, index) => {
                 return this.renderVisibleInput(
                   key,

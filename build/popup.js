@@ -42995,7 +42995,7 @@ App = function (_Component) {_inherits(App, _Component);
           margin: 'normal',
           id: 'email',
           name: key,
-          label: key,
+          label: '' + key.charAt(0).toUpperCase() + key.slice(1),
           key: key,
           value: value,
           autoFocus: index === 0 ? true : false,
@@ -43036,10 +43036,9 @@ App = function (_Component) {_inherits(App, _Component);
 
 
               _react2.default.createElement('form', {
-                  // onSubmit={event => {
-                  //   this.handleSubmission(event);
-                  // }}
-                  noValidate: true },
+                  onSubmit: function onSubmit(event) {
+                    _this3.handleSubmission(event);
+                  } },
                 Object.keys(this.props.visibleTextInputs).map(function (key, index) {
                   return _this3.renderVisibleInput(
                   key,
