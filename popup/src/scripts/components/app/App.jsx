@@ -8,6 +8,9 @@ import {
   CssBaseline,
   ThemeProvider,
   Grid,
+  CardContent,
+  Paper,
+  Box,
   Typography,
   TextField,
   Button,
@@ -122,11 +125,7 @@ class App extends Component {
         <CssBaseline />
         <ThemeProvider theme={theme}>
           <Grid container direction="column" style={{padding: 13}}>
-            <Typography
-              variant="h3"
-              component="h2"
-              color="primary"
-              gutterBottom>
+            <Typography variant="h3" color="primary" gutterBottom>
               Form Automation
             </Typography>
             <form
@@ -145,9 +144,29 @@ class App extends Component {
                 fullWidth
                 variant="outlined"
                 color="primary">
-                Submit
+                <Typography variant="h4" color="primary">
+                  Submit
+                </Typography>
               </Button>
             </form>
+            <CardContent>
+              <Typography
+                variant="h6"
+                color="primary"
+                // style={{margin: 0}}
+              >
+                Keyboard Shortcut
+              </Typography>
+              {/* <Paper elevation={3}>Cmd + Shift + O</Paper> */}
+              <Box
+                color="secondary"
+                borderColor="secondary"
+                border={1}
+                borderRadius="borderRadius"
+                style={{display: 'inline-block', margin: 0}}>
+                Cmd + Shift + O
+              </Box>
+            </CardContent>
           </Grid>
         </ThemeProvider>
       </React.Fragment>

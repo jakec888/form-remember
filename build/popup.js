@@ -42919,6 +42919,9 @@ var _core = __webpack_require__(412);function _interopRequireDefault(obj) {retur
 
 
 
+
+
+
 var theme = (0, _core.createMuiTheme)({
   palette: {
     primary: {
@@ -43028,11 +43031,7 @@ App = function (_Component) {_inherits(App, _Component);
           _react2.default.createElement(_core.CssBaseline, null),
           _react2.default.createElement(_core.ThemeProvider, { theme: theme },
             _react2.default.createElement(_core.Grid, { container: true, direction: 'column', style: { padding: 13 } },
-              _react2.default.createElement(_core.Typography, {
-                  variant: 'h3',
-                  component: 'h2',
-                  color: 'primary',
-                  gutterBottom: true }, 'Form Automation'),
+              _react2.default.createElement(_core.Typography, { variant: 'h3', color: 'primary', gutterBottom: true }, 'Form Automation'),
 
 
               _react2.default.createElement('form', {
@@ -43050,7 +43049,27 @@ App = function (_Component) {_inherits(App, _Component);
                     type: 'submit',
                     fullWidth: true,
                     variant: 'outlined',
-                    color: 'primary' }, 'Submit'))))));
+                    color: 'primary' },
+                  _react2.default.createElement(_core.Typography, { variant: 'h4', color: 'primary' }, 'Submit'))),
+
+
+
+
+              _react2.default.createElement(_core.CardContent, null,
+                _react2.default.createElement(_core.Typography, {
+                    variant: 'h6',
+                    color: 'primary'
+                    // style={{margin: 0}}
+                  }, 'Keyboard Shortcut'),
+
+
+
+                _react2.default.createElement(_core.Box, {
+                    color: 'secondary',
+                    borderColor: 'secondary',
+                    border: 1,
+                    borderRadius: 'borderRadius',
+                    style: { display: 'inline-block', margin: 0 } }, 'Cmd + Shift + O'))))));
 
 
 
