@@ -3,7 +3,26 @@ import {connect} from 'react-redux';
 
 import browser from 'webextension-polyfill';
 
-import './App.css';
+import {
+  createMuiTheme,
+  CssBaseline,
+  ThemeProvider,
+  Grid,
+  Typography,
+  TextField,
+  Button,
+} from '@material-ui/core';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: '#45b3e7',
+    },
+    secondary: {
+      main: '#e77945',
+    },
+  },
+});
 
 class App extends Component {
   constructor(props) {
@@ -36,6 +55,9 @@ class App extends Component {
       type: 'GET_STORED_INPUTS',
       payload: {data, visibleTextInputs},
     });
+
+    // render up
+    window.scrollTo(0, 0);
   }
 
   async getAllVisibleTextInputs() {
@@ -58,17 +80,23 @@ class App extends Component {
     });
   }
 
-  renderVisibleInput(key, value) {
+  renderVisibleInput(key, value, index) {
     return (
-      <div key={key}>
-        <h3>{key}</h3>
-        <input
-          onChange={event => {
-            this.onHandleTextInputChange(event, key);
-          }}
-          value={value}
-        />
-      </div>
+      <TextField
+        fullWidth
+        variant="outlined"
+        color="secondary"
+        margin="normal"
+        id="email"
+        name={key}
+        label={key}
+        key={key}
+        value={value}
+        autoFocus={index === 0 ? true : false}
+        onChange={event => {
+          this.onHandleTextInputChange(event, key);
+        }}
+      />
     );
   }
 
@@ -90,24 +118,40 @@ class App extends Component {
 
   render() {
     return (
-      <div className="popup-container">
-        <h1>Hello World</h1>
-
-        <form
-          onSubmit={event => {
-            this.handleSubmission(event);
-          }}>
-          {Object.keys(this.props.visibleTextInputs).map(key => {
-            return this.renderVisibleInput(
-              key,
-              this.props.visibleTextInputs[key],
-            );
-          })}
-          <button variant="primary" type="submit">
-            Submit
-          </button>
-        </form>
-      </div>
+      <React.Fragment>
+        <CssBaseline />
+        <ThemeProvider theme={theme}>
+          <Grid container direction="column" style={{padding: 13}}>
+            <Typography
+              variant="h3"
+              component="h2"
+              color="primary"
+              gutterBottom>
+              Form Automation
+            </Typography>
+            <form
+              // onSubmit={event => {
+              //   this.handleSubmission(event);
+              // }}
+              noValidate>
+              {Object.keys(this.props.visibleTextInputs).map((key, index) => {
+                return this.renderVisibleInput(
+                  key,
+                  this.props.visibleTextInputs[key],
+                  index,
+                );
+              })}
+              <Button
+                type="submit"
+                fullWidth
+                variant="outlined"
+                color="primary">
+                Submit
+              </Button>
+            </form>
+          </Grid>
+        </ThemeProvider>
+      </React.Fragment>
     );
   }
 }
