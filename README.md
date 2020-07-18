@@ -9,4 +9,5 @@ automate autofill text inputs on specific pages
 - material ui √
 - import hashmap as a json file
 - export hashmap into json file √
+- composition, composition, composition
 - publish

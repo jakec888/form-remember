@@ -158,16 +158,30 @@ class App extends Component {
   async importJSON() {
     console.log('importing...');
 
-    console.log('dispatching');
+    let myInput = document.getElementById('fileElem');
 
-    console.log(this.props);
+    console.log(myInput);
 
-    await this.props.dispatch({
-      type: 'IMPORT_MAP',
-      payload: 'sample',
-    });
+    myInput.click();
 
-    await console.log('importing done');
+    console.log('myFile');
+    console.log(myInput);
+    console.log(myInput.files);
+
+    // await this.props.dispatch({
+    //   type: 'IMPORT_MAP',
+    //   payload: 'sample',
+    // });
+
+    /////////
+
+    // const tabs = await browser.tabs.query({currentWindow: true, active: true});
+
+    // await browser.tabs.sendMessage(tabs[0].id, {
+    //   command: 'IMPORT_MAP',
+    // });
+
+    console.log('importing done');
   }
 
   render() {

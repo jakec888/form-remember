@@ -43064,16 +43064,30 @@ App = function (_Component) {_inherits(App, _Component);
     {
       console.log('importing...');
 
-      console.log('dispatching');
+      var myInput = document.getElementById('fileElem');
 
-      console.log(this.props);
+      console.log(myInput);
 
-      await this.props.dispatch({
-        type: 'IMPORT_MAP',
-        payload: 'sample' });
+      myInput.click();
 
+      console.log('myFile');
+      console.log(myInput);
+      console.log(myInput.files);
 
-      await console.log('importing done');
+      // await this.props.dispatch({
+      //   type: 'IMPORT_MAP',
+      //   payload: 'sample',
+      // });
+
+      /////////
+
+      // const tabs = await browser.tabs.query({currentWindow: true, active: true});
+
+      // await browser.tabs.sendMessage(tabs[0].id, {
+      //   command: 'IMPORT_MAP',
+      // });
+
+      console.log('importing done');
     } }, { key: 'render', value: function render()
 
     {var _this4 = this;
@@ -43133,7 +43147,7 @@ App = function (_Component) {_inherits(App, _Component);
                       }
                       // onClick={this.importJSON}
                     },
-                    _react2.default.createElement(_core.Typography, { variant: 'caption', display: 'block' }, 'Imports')),
+                    _react2.default.createElement(_core.Typography, { variant: 'caption', display: 'block' }, 'Import')),
 
 
 
