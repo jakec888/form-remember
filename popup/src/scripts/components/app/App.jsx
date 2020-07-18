@@ -168,11 +168,6 @@ class App extends Component {
     console.log(myInput);
     console.log(myInput.files);
 
-    // await this.props.dispatch({
-    //   type: 'IMPORT_MAP',
-    //   payload: 'sample',
-    // });
-
     /////////
 
     // const tabs = await browser.tabs.query({currentWindow: true, active: true});
@@ -184,12 +179,23 @@ class App extends Component {
     console.log('importing done');
   }
 
+  onChangeHandler(event) {
+    console.log('onChangeHandler');
+    console.log(event.target.files);
+  }
+
   render() {
     return (
       <React.Fragment>
         <CssBaseline />
         <ThemeProvider theme={theme}>
           <Grid container direction="column" style={{padding: 13}}>
+            <input
+              type="file"
+              onChange={event => {
+                this.onChangeHandler(event);
+              }}
+            />
             <Typography variant="h3" color="primary" gutterBottom>
               Form Automation
             </Typography>
