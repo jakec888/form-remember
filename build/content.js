@@ -77,6 +77,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 __WEBPACK_IMPORTED_MODULE_0_webextension_polyfill___default.a.runtime.onMessage.addListener(async request => {
+  if (request.command == 'IMPORT_MAP') {
+    await console.log('IMPORT_MAP');
+    await console.log(request.payload);
+
+    let input = await document.getElementById('fileElem');
+    await console.log(input);
+
+    await input.click();
+    await console.log('clicked!');
+  }
+
   if (request.command == 'GET_ALL_VISIBLE_TEXT_INPUTS_NAME') {
     let visibleInputs = {};
 

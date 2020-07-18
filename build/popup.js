@@ -43059,6 +43059,21 @@ App = function (_Component) {_inherits(App, _Component);
       element.download = new Date().toISOString() + '.json';
       document.body.appendChild(element);
       element.click();
+    } }, { key: 'importJSON', value: async function importJSON()
+
+    {
+      console.log('importing...');
+
+      console.log('dispatching');
+
+      console.log(this.props);
+
+      await this.props.dispatch({
+        type: 'IMPORT_MAP',
+        payload: 'sample' });
+
+
+      await console.log('importing done');
     } }, { key: 'render', value: function render()
 
     {var _this4 = this;
@@ -43106,15 +43121,24 @@ App = function (_Component) {_inherits(App, _Component);
 
 
               _react2.default.createElement(_core.CardContent, {
-                  display: 'flex',
-                  flexDirection: 'row',
-                  justifyContent: 'space-evenly' },
+                  display: 'flex'
+                  // flexDirection="row"
+                  // justifyContent="space-evenly"
+                },
                 _react2.default.createElement(_core.Grid, { item: true, xs: 6 },
-                  _react2.default.createElement(_core.Button, { color: 'secondary' },
-                    _react2.default.createElement(_core.Typography, { variant: 'caption', display: 'block' }, 'Import'))),
+                  _react2.default.createElement(_core.Button, {
+                      color: 'secondary',
+                      onClick: function onClick() {
+                        _this4.importJSON();
+                      }
+                      // onClick={this.importJSON}
+                    },
+                    _react2.default.createElement(_core.Typography, { variant: 'caption', display: 'block' }, 'Imports')),
 
 
 
+
+                  _react2.default.createElement('input', { id: 'fileElem', type: 'file', style: { display: 'none' } })),
 
                 _react2.default.createElement(_core.Grid, { item: true, xs: 6 },
                   _react2.default.createElement(_core.Button, {

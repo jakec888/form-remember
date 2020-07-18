@@ -155,6 +155,21 @@ class App extends Component {
     element.click();
   }
 
+  async importJSON() {
+    console.log('importing...');
+
+    console.log('dispatching');
+
+    console.log(this.props);
+
+    await this.props.dispatch({
+      type: 'IMPORT_MAP',
+      payload: 'sample',
+    });
+
+    await console.log('importing done');
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -201,14 +216,23 @@ class App extends Component {
 
             <CardContent
               display="flex"
-              flexDirection="row"
-              justifyContent="space-evenly">
+              // flexDirection="row"
+              // justifyContent="space-evenly"
+            >
               <Grid item xs={6}>
-                <Button color="secondary">
+                <Button
+                  color="secondary"
+                  onClick={() => {
+                    this.importJSON();
+                  }}
+                  // onClick={this.importJSON}
+                >
                   <Typography variant="caption" display="block">
                     Import
                   </Typography>
+                  {/* <input id="import" type="file" style={{display: 'none'}} /> */}
                 </Button>
+                <input id="fileElem" type="file" style={{display: 'none'}} />
               </Grid>
               <Grid item xs={6}>
                 <Button
