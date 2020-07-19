@@ -43062,30 +43062,12 @@ App = function (_Component) {_inherits(App, _Component);
       element.download = new Date().toISOString() + '.json';
       document.body.appendChild(element);
       element.click();
-    } }, { key: 'importJSON', value: async function importJSON()
+    } }, { key: 'importJSON', value: function importJSON()
 
     {
-      console.log('importing...');
+      this.props.dispatch({
+        type: 'OPEN_IMPORT_JSON' });
 
-      var myInput = document.getElementById('fileElem');
-
-      console.log(myInput);
-
-      myInput.click();
-
-      console.log('myFile');
-      console.log(myInput);
-      console.log(myInput.files);
-
-      /////////
-
-      // const tabs = await browser.tabs.query({currentWindow: true, active: true});
-
-      // await browser.tabs.sendMessage(tabs[0].id, {
-      //   command: 'IMPORT_MAP',
-      // });
-
-      console.log('importing done');
     } }, { key: 'render', value: function render()
 
     {var _this4 = this;

@@ -8,14 +8,10 @@ import browser from 'webextension-polyfill';
 import App from './components/App';
 
 browser.runtime.onMessage.addListener(async request => {
-  if (request.command == 'IMPORT_MAP') {
-    await console.log('IMPORT_MAP');
+  if (request.command == 'IMPORT_JSON_FROM_CONTENT') {
+    console.log('IMPORT_JSON_FROM_CONTENT');
 
-    let input = await document.getElementById('fileElem');
-    await console.log(input);
-
-    await input.click();
-    await console.log('clicked!');
+    localStorage.setItem('FormAutomation', request.data);
   }
 
   if (request.command == 'GET_ALL_VISIBLE_TEXT_INPUTS_NAME') {

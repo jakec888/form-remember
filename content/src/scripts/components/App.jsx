@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 
 import {DropzoneDialog} from 'material-ui-dropzone';
 
+import browser from 'webextension-polyfill';
+
 import {
   createMuiTheme,
   CssBaseline,
@@ -33,7 +35,6 @@ class App extends Component {
 
   handleOpen() {
     console.log('handleOpen');
-    console.log(this.props);
     this.props.dispatch({
       type: 'OPEN_IMPORT_JSON',
     });
@@ -41,21 +42,52 @@ class App extends Component {
 
   handleClose() {
     console.log('handleClose');
-    console.log(this.props);
     this.props.dispatch({
       type: 'CLOSE_IMPORT_JSON',
     });
   }
 
-  async handleSave(event) {
+  async saveFile(data) {
+    console.log('saveFile:');
+    console.log(data);
+
+    console.log('tabs');
+    const tabs = await browser.tabs.query({
+      currentWindow: true,
+      active: true,
+    });
+    await console.log(tabs);
+
+    await console.log('sending message');
+    await browser.tabs.sendMessage(tabs[0].id, {
+      command: 'IMPORT_JSON_FROM_CONTENT',
+      data,
+    });
+    await console.log('message received');
+
+    // localStorage.setItem('FormAutomation', result);
+  }
+
+  // handleSave(event) {
+  //   console.log('handleSave');
+
+  handleSave(event, saveFile) {
+    console.log('handleSave');
+    console.log(saveFile);
+
     let file = event[0];
 
     let reader = new FileReader();
 
     reader.onload = function (evt) {
-      let result = evt.target.result;
+      console.log('evt.target.result');
+      console.log(evt.target.result);
 
-      localStorage.setItem('FormAutomation', result);
+      console.log('reader.result');
+      console.log(reader.result);
+
+      console.log('saving');
+      saveFile(reader.result);
     };
 
     reader.readAsText(file);
@@ -84,7 +116,8 @@ class App extends Component {
             <DropzoneDialog
               open={this.props.importing}
               onSave={event => {
-                this.handleSave(event);
+                // this.handleSave(event, this.saveFile);
+                this.handleSave(event, this.saveFile);
               }}
               acceptedFiles={['application/json']}
               showPreviews={true}

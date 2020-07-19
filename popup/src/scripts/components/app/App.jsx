@@ -155,28 +155,10 @@ class App extends Component {
     element.click();
   }
 
-  async importJSON() {
-    console.log('importing...');
-
-    let myInput = document.getElementById('fileElem');
-
-    console.log(myInput);
-
-    myInput.click();
-
-    console.log('myFile');
-    console.log(myInput);
-    console.log(myInput.files);
-
-    /////////
-
-    // const tabs = await browser.tabs.query({currentWindow: true, active: true});
-
-    // await browser.tabs.sendMessage(tabs[0].id, {
-    //   command: 'IMPORT_MAP',
-    // });
-
-    console.log('importing done');
+  importJSON() {
+    this.props.dispatch({
+      type: 'OPEN_IMPORT_JSON',
+    });
   }
 
   render() {
