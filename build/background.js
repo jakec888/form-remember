@@ -986,6 +986,8 @@ Object.defineProperty(exports, "__esModule", { value: true });var GET_STORED_INP
 
 var UPDATE_VISIBLE_TEXT_INPUT = exports.UPDATE_VISIBLE_TEXT_INPUT = 'UPDATE_VISIBLE_TEXT_INPUT';
 
+var IMPORT_JSON = exports.IMPORT_JSON = 'IMPORT_JSON';
+
 /***/ }),
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -993,9 +995,14 @@ var UPDATE_VISIBLE_TEXT_INPUT = exports.UPDATE_VISIBLE_TEXT_INPUT = 'UPDATE_VISI
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });var _input = __webpack_require__(13);
 
+
+
+
+
 var initialState = {
   data: [],
-  visibleTextInputs: {} };exports.default =
+  visibleTextInputs: {},
+  importing: false };exports.default =
 
 
 function () {var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;var actions = arguments[1];
@@ -1008,6 +1015,10 @@ function () {var state = arguments.length > 0 && arguments[0] !== undefined ? ar
     case _input.UPDATE_VISIBLE_TEXT_INPUT:
       return Object.assign({}, state, {
         visibleTextInputs: actions.payload.visibleTextInputs });
+
+    case _input.IMPORT_JSON:
+      return Object.assign({}, state, {
+        importing: actions.payload.importing });
 
     default:
       return state;}

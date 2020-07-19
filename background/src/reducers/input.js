@@ -1,8 +1,13 @@
-import {GET_STORED_INPUTS, UPDATE_VISIBLE_TEXT_INPUT} from '../constants/input';
+import {
+  GET_STORED_INPUTS,
+  UPDATE_VISIBLE_TEXT_INPUT,
+  IMPORT_JSON,
+} from '../constants/input';
 
 const initialState = {
   data: [],
   visibleTextInputs: {},
+  importing: false,
 };
 
 export default (state = initialState, actions) => {
@@ -15,6 +20,10 @@ export default (state = initialState, actions) => {
     case UPDATE_VISIBLE_TEXT_INPUT:
       return Object.assign({}, state, {
         visibleTextInputs: actions.payload.visibleTextInputs,
+      });
+    case IMPORT_JSON:
+      return Object.assign({}, state, {
+        importing: actions.payload.importing,
       });
     default:
       return state;

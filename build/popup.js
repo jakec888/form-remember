@@ -43083,11 +43083,6 @@ App = function (_Component) {_inherits(App, _Component);
       // });
 
       console.log('importing done');
-    } }, { key: 'onChangeHandler', value: function onChangeHandler(
-
-    event) {
-      console.log('onChangeHandler');
-      console.log(event.target.files);
     } }, { key: 'render', value: function render()
 
     {var _this4 = this;
@@ -43096,12 +43091,6 @@ App = function (_Component) {_inherits(App, _Component);
           _react2.default.createElement(_core.CssBaseline, null),
           _react2.default.createElement(_core.ThemeProvider, { theme: theme },
             _react2.default.createElement(_core.Grid, { container: true, direction: 'column', style: { padding: 13 } },
-              _react2.default.createElement('input', {
-                type: 'file',
-                onChange: function onChange(event) {
-                  _this4.onChangeHandler(event);
-                } }),
-
               _react2.default.createElement(_core.Typography, { variant: 'h3', color: 'primary', gutterBottom: true }, 'Form Automation'),
 
 
@@ -43154,7 +43143,6 @@ App = function (_Component) {_inherits(App, _Component);
                       // onClick={this.importJSON}
                     },
                     _react2.default.createElement(_core.Typography, { variant: 'caption', display: 'block' }, 'Import')),
-
 
 
 
