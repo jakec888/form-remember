@@ -10923,8 +10923,11 @@ var proxyStore = new _webextRedux.Store();
 
 proxyStore.ready().then(function () {
   (0, _reactDom.render)(
-  _react2.default.createElement(_reactRedux.Provider, { store: proxyStore }, _react2.default.createElement(_App2.default, null)),
+  _react2.default.createElement(_reactRedux.Provider, { store: proxyStore },
+    _react2.default.createElement(_App2.default, null)),
+
   document.getElementById('app'));
+
 });
 
 /***/ }),
@@ -43168,14 +43171,11 @@ App = function (_Component) {_inherits(App, _Component);
 
 
 var mapStateToProps = function mapStateToProps(state) {return {
-    data: state.Inputs.data,
-    visibleTextInputs: state.Inputs.visibleTextInputs };};
+    data: state.Main.data,
+    visibleTextInputs: state.Main.visibleTextInputs };};exports.default =
 
 
-// const mapDispatchToProps = dispatch => ({});
-
-// export default connect(mapStateToProps, mapDispatchToProps)(App);
-exports.default = (0, _reactRedux.connect)(mapStateToProps)(App);
+(0, _reactRedux.connect)(mapStateToProps)(App);
 
 /***/ }),
 /* 472 */

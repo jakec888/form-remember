@@ -5,7 +5,7 @@ import {Store} from 'webext-redux';
 
 import browser from 'webextension-polyfill';
 
-import App from './components/app/App';
+import App from './components/App';
 
 browser.runtime.onMessage.addListener(async request => {
   if (request.command == 'IMPORT_MAP') {

@@ -988,12 +988,18 @@ var UPDATE_VISIBLE_TEXT_INPUT = exports.UPDATE_VISIBLE_TEXT_INPUT = 'UPDATE_VISI
 
 var IMPORT_JSON = exports.IMPORT_JSON = 'IMPORT_JSON';
 
+var OPEN_IMPORT_JSON = exports.OPEN_IMPORT_JSON = 'OPEN_IMPORT_JSON';
+
+var CLOSE_IMPORT_JSON = exports.CLOSE_IMPORT_JSON = 'CLOSE_IMPORT_JSON';
+
 /***/ }),
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });var _input = __webpack_require__(13);
+
+
 
 
 
@@ -1016,9 +1022,19 @@ function () {var state = arguments.length > 0 && arguments[0] !== undefined ? ar
       return Object.assign({}, state, {
         visibleTextInputs: actions.payload.visibleTextInputs });
 
-    case _input.IMPORT_JSON:
+    case _input.OPEN_IMPORT_JSON:
       return Object.assign({}, state, {
-        importing: actions.payload.importing });
+        importing: true });
+
+    case _input.CLOSE_IMPORT_JSON:
+      return Object.assign({}, state, {
+        importing: false });
+
+    case _input.IMPORT_JSON:
+      console.log('IMPORT_JSON');
+      return Object.assign({}, state, {
+        data: actions.payload.data,
+        importing: false });
 
     default:
       return state;}
@@ -1035,7 +1051,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.rootReduce
 var _input = __webpack_require__(14);var _input2 = _interopRequireDefault(_input);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 var rootReducer = exports.rootReducer = (0, _redux.combineReducers)({
-  Inputs: _input2.default });
+  Main: _input2.default });
 
 /***/ }),
 /* 16 */

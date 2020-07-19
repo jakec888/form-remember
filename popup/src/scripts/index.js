@@ -10,7 +10,9 @@ const proxyStore = new Store();
 
 proxyStore.ready().then(() => {
   render(
-     <Provider store={proxyStore}><App /></Provider>
-    ,document.getElementById('app'));
+    <Provider store={proxyStore}>
+      <App />
+    </Provider>,
+    document.getElementById('app'),
+  );
 });
-

@@ -2,6 +2,8 @@ import {
   GET_STORED_INPUTS,
   UPDATE_VISIBLE_TEXT_INPUT,
   IMPORT_JSON,
+  OPEN_IMPORT_JSON,
+  CLOSE_IMPORT_JSON,
 } from '../constants/input';
 
 const initialState = {
@@ -21,9 +23,19 @@ export default (state = initialState, actions) => {
       return Object.assign({}, state, {
         visibleTextInputs: actions.payload.visibleTextInputs,
       });
-    case IMPORT_JSON:
+    case OPEN_IMPORT_JSON:
       return Object.assign({}, state, {
-        importing: actions.payload.importing,
+        importing: true,
+      });
+    case CLOSE_IMPORT_JSON:
+      return Object.assign({}, state, {
+        importing: false,
+      });
+    case IMPORT_JSON:
+      console.log('IMPORT_JSON');
+      return Object.assign({}, state, {
+        data: actions.payload.data,
+        importing: false,
       });
     default:
       return state;

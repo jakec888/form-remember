@@ -29,58 +29,38 @@ const theme = createMuiTheme({
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      open: false,
-      files: [],
-    };
   }
 
-  handleClose() {
-    this.setState({
-      open: false,
+  handleOpen() {
+    console.log('handleOpen');
+    console.log(this.props);
+    this.props.dispatch({
+      type: 'OPEN_IMPORT_JSON',
     });
   }
 
-  handleSave(files) {
-    //Saving files to state for further use and closing Modal.
-    console.log('Saving files to state for further use and closing Modal');
-    console.log(files);
+  handleClose() {
+    console.log('handleClose');
+    console.log(this.props);
+    this.props.dispatch({
+      type: 'CLOSE_IMPORT_JSON',
+    });
+  }
+
+  async handleSave(event) {
+    let file = event[0];
 
     let reader = new FileReader();
 
     reader.onload = function (evt) {
-      console.log('evt.target.result');
-      console.log(evt.target.result);
+      let result = evt.target.result;
 
-      let data = new Map(JSON.parse(evt.target.result));
-      console.log(data);
-
-      // this.setState({
-      //   files: files,
-      //   open: false,
-      // });
-
-      console.log('done');
+      localStorage.setItem('FormAutomation', result);
     };
 
-    console.log('reader.readAsText(files[0])');
-    console.log(reader.readAsText(files[0]));
+    reader.readAsText(file);
 
-    // let data = await new Map(JSON.parse(reader.readAsText(files[0])));
-
-    // await console.log('data');
-    // await console.log(data);
-
-    // await this.setState({
-    //   files: files,
-    //   open: false,
-    // });
-  }
-
-  handleOpen() {
-    this.setState({
-      open: true,
-    });
+    this.handleClose();
   }
 
   render() {
@@ -102,9 +82,9 @@ class App extends Component {
             </Button>
 
             <DropzoneDialog
-              open={this.state.open}
-              onSave={files => {
-                this.handleSave(files);
+              open={this.props.importing}
+              onSave={event => {
+                this.handleSave(event);
               }}
               acceptedFiles={['application/json']}
               showPreviews={true}
@@ -121,8 +101,9 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {};
-};
+const mapStateToProps = state => ({
+  data: state.Main.data,
+  importing: state.Main.importing,
+});
 
 export default connect(mapStateToProps)(App);

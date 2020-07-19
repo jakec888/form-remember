@@ -43598,60 +43598,40 @@ var theme = (0, _core.createMuiTheme)({
 
 
 App = function (_Component) {_inherits(App, _Component);
-  function App(props) {_classCallCheck(this, App);var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this,
+  function App(props) {_classCallCheck(this, App);return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this,
     props));
-    _this.state = {
-      open: false,
-      files: [] };return _this;
-
-  }_createClass(App, [{ key: 'handleClose', value: function handleClose()
+  }_createClass(App, [{ key: 'handleOpen', value: function handleOpen()
 
     {
-      this.setState({
-        open: false });
+      console.log('handleOpen');
+      console.log(this.props);
+      this.props.dispatch({
+        type: 'OPEN_IMPORT_JSON' });
 
-    } }, { key: 'handleSave', value: function handleSave(
+    } }, { key: 'handleClose', value: function handleClose()
 
-    files) {
-      //Saving files to state for further use and closing Modal.
-      console.log('Saving files to state for further use and closing Modal');
-      console.log(files);
+    {
+      console.log('handleClose');
+      console.log(this.props);
+      this.props.dispatch({
+        type: 'CLOSE_IMPORT_JSON' });
+
+    } }, { key: 'handleSave', value: async function handleSave(
+
+    event) {
+      var file = event[0];
 
       var reader = new FileReader();
 
       reader.onload = function (evt) {
-        console.log('evt.target.result');
-        console.log(evt.target.result);
+        var result = evt.target.result;
 
-        var data = new Map(JSON.parse(evt.target.result));
-        console.log(data);
-
-        // this.setState({
-        //   files: files,
-        //   open: false,
-        // });
-
-        console.log('done');
+        localStorage.setItem('FormAutomation', result);
       };
 
-      console.log('reader.readAsText(files[0])');
-      console.log(reader.readAsText(files[0]));
+      reader.readAsText(file);
 
-      // let data = await new Map(JSON.parse(reader.readAsText(files[0])));
-
-      // await console.log('data');
-      // await console.log(data);
-
-      // await this.setState({
-      //   files: files,
-      //   open: false,
-      // });
-    } }, { key: 'handleOpen', value: function handleOpen()
-
-    {
-      this.setState({
-        open: true });
-
+      this.handleClose();
     } }, { key: 'render', value: function render()
 
     {var _this2 = this;
@@ -43673,9 +43653,9 @@ App = function (_Component) {_inherits(App, _Component);
 
 
               _react2.default.createElement(_materialUiDropzone.DropzoneDialog, {
-                open: this.state.open,
-                onSave: function onSave(files) {
-                  _this2.handleSave(files);
+                open: this.props.importing,
+                onSave: function onSave(event) {
+                  _this2.handleSave(event);
                 },
                 acceptedFiles: ['application/json'],
                 showPreviews: true,
@@ -43692,9 +43672,10 @@ App = function (_Component) {_inherits(App, _Component);
     } }]);return App;}(_react.Component);
 
 
-var mapStateToProps = function mapStateToProps(state) {
-  return {};
-};exports.default =
+var mapStateToProps = function mapStateToProps(state) {return {
+    data: state.Main.data,
+    importing: state.Main.importing };};exports.default =
+
 
 (0, _reactRedux.connect)(mapStateToProps)(App);
 

@@ -262,11 +262,8 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  data: state.Inputs.data,
-  visibleTextInputs: state.Inputs.visibleTextInputs,
+  data: state.Main.data,
+  visibleTextInputs: state.Main.visibleTextInputs,
 });
 
-// const mapDispatchToProps = dispatch => ({});
-
-// export default connect(mapStateToProps, mapDispatchToProps)(App);
 export default connect(mapStateToProps)(App);
