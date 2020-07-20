@@ -964,18 +964,30 @@ module.exports = g;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
+
+
+
+
+
+
+
+
 var _redux = __webpack_require__(5);
 var _reduxThunk = __webpack_require__(25);var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
 var _rootReducers = __webpack_require__(15);
 
-var _webextRedux = __webpack_require__(32);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-
-var initialState = {};
-
-var store = (0, _redux.createStore)(_rootReducers.rootReducer, initialState, (0, _redux.applyMiddleware)(_reduxThunk2.default));
-
-(0, _webextRedux.wrapStore)(store);
+var _webextRedux = __webpack_require__(32);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} /*
+                                                                                                                                         
+                                                                                                                                         This is the Background
+                                                                                                                                         
+                                                                                                                                         runs in the background and where persistent data is stored
+                                                                                                                                         
+                                                                                                                                         using background to hold our single source of truth (redux) data store
+                                                                                                                                         
+                                                                                                                                         */var initialState = {};var store = (0, _redux.createStore)(_rootReducers.rootReducer, initialState, (0, _redux.applyMiddleware)(_reduxThunk2.default));(0, _webextRedux.wrapStore)(store);
 
 /***/ }),
 /* 13 */

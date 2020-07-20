@@ -10911,6 +10911,14 @@ function getBrowserAPI() {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
+
+
+
+
+
+
 var _react = __webpack_require__(1);var _react2 = _interopRequireDefault(_react);
 var _reactDom = __webpack_require__(13);
 
@@ -10919,13 +10927,13 @@ var _reactRedux = __webpack_require__(249);
 
 var _App = __webpack_require__(471);var _App2 = _interopRequireDefault(_App);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
-var proxyStore = new _webextRedux.Store();
-
-proxyStore.ready().then(function () {
-  (0, _reactDom.render)(
-  _react2.default.createElement(_reactRedux.Provider, { store: proxyStore },
-    _react2.default.createElement(_App2.default, null)),
-
+var proxyStore = new _webextRedux.Store(); /*
+                                           
+                                           This is the Popup
+                                           
+                                           runs when the extension icon is clicked
+                                           
+                                           */proxyStore.ready().then(function () {(0, _reactDom.render)(_react2.default.createElement(_reactRedux.Provider, { store: proxyStore }, _react2.default.createElement(_App2.default, null)),
   document.getElementById('app'));
 
 });
@@ -42938,11 +42946,10 @@ var theme = (0, _core.createMuiTheme)({
 App = function (_Component) {_inherits(App, _Component);
   function App(props) {_classCallCheck(this, App);return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this,
     props));
-  }_createClass(App, [{ key: 'componentDidMount', value: async function componentDidMount()
+  }
 
-    {
-      console.log('opened popup');
-
+  // on popup/extension open/click
+  _createClass(App, [{ key: 'componentDidMount', value: async function componentDidMount() {
       // create 'FormAutomation' hashmap if not in local storage
       !localStorage.getItem('FormAutomation') &&
       localStorage.setItem(
@@ -42973,39 +42980,51 @@ App = function (_Component) {_inherits(App, _Component);
 
       // render up
       window.scrollTo(0, 0);
-    } }, { key: 'postAllVisibleTextInputs', value: async function postAllVisibleTextInputs(
+    }
 
-    data, visibleTextInputs) {
+    // view all visible text inputs on the page
+  }, { key: 'postAllVisibleTextInputs', value: async function postAllVisibleTextInputs(data, visibleTextInputs) {
+      // find current tab/window
       var tabs = await _webextensionPolyfill2.default.tabs.query({ currentWindow: true, active: true });
 
+      // get current filled hashmap and insert values into the page's form
       await _webextensionPolyfill2.default.tabs.sendMessage(tabs[0].id, {
         command: 'POST_ALL_VISIBLE_TEXT_INPUTS_NAME',
         data: data,
         visibleTextInputs: visibleTextInputs });
 
-    } }, { key: 'getAllVisibleTextInputs', value: async function getAllVisibleTextInputs()
+    }
 
-    {
+    // view all visible text inputs on the page
+  }, { key: 'getAllVisibleTextInputs', value: async function getAllVisibleTextInputs() {
+      // find current tab/window
       var tabs = await _webextensionPolyfill2.default.tabs.query({ currentWindow: true, active: true });
 
+      // send message to the background to run command on the current window/tab
       var visibleTextInputs = await _webextensionPolyfill2.default.tabs.sendMessage(tabs[0].id, {
         command: 'GET_ALL_VISIBLE_TEXT_INPUTS_NAME' });
 
 
       return visibleTextInputs;
-    } }, { key: 'onHandleTextInputChange', value: function onHandleTextInputChange(
+    }
 
-    event, key) {
+    // handle input value for page's visible text input
+  }, { key: 'onHandleTextInputChange', value: function onHandleTextInputChange(event, key) {
+      // create copy of the visible text input to avoid mutating state directly
       var updatedVisibleTextInputs = this.props.visibleTextInputs;
+
+      // find the key in the hashmap and insert new value
       updatedVisibleTextInputs[key] = event.target.value;
 
+      // update redux
       this.props.dispatch({
         type: 'UPDATE_VISIBLE_TEXT_INPUT',
         payload: { visibleTextInputs: updatedVisibleTextInputs } });
 
-    } }, { key: 'handleSubmission', value: async function handleSubmission(
+    }
 
-    event) {var _this2 = this;
+    // submit all filled in values for visible text input and save to persistent memory
+  }, { key: 'handleSubmission', value: async function handleSubmission(event) {var _this2 = this;
       event.preventDefault();
 
       // add visible input values in the hashmap
@@ -43026,19 +43045,35 @@ App = function (_Component) {_inherits(App, _Component);
       JSON.stringify(Array.from(updatedData)));
 
 
-      console.log('closing!');
+      // close popup/extension
       window.close();
-    } }, { key: 'exportToJSON', value: function exportToJSON()
+    }
 
-    {
+    // export current hashmap as a json and delete local storage data
+  }, { key: 'exportToJSON', value: function exportToJSON() {
+      // create a sudo element to store data
       var element = document.createElement('a');
+
+      // create file
       var file = new Blob([JSON.stringify(Array.from(this.props.data))], {
         type: 'text/json' });
 
+
+      // create downloadable url to file
       element.href = URL.createObjectURL(file);
+
+      // create file name using current date and time
       element.download = new Date().toISOString() + '.json';
+
+      // append element to document
       document.body.appendChild(element);
+
+      // download element
       element.click();
+
+      // delete after downloading hashmap
+      // uncomment when 'import json' is finished/added
+      // localStorage.removeItem('FormAutomation');
     }
 
     // importJSON() {
@@ -43046,8 +43081,9 @@ App = function (_Component) {_inherits(App, _Component);
     //     type: 'OPEN_IMPORT_JSON',
     //   });
     // }
-  }, { key: 'renderVisibleInput', value: function renderVisibleInput(
-    key, value, index) {var _this3 = this;
+
+    // render visible text input
+  }, { key: 'renderVisibleInput', value: function renderVisibleInput(key, value, index) {var _this3 = this;
       return (
         _react2.default.createElement(_core.TextField, {
           fullWidth: true,
@@ -43066,13 +43102,18 @@ App = function (_Component) {_inherits(App, _Component);
 
 
     } }, { key: 'render', value: function render()
+
     {var _this4 = this;
       return (
         _react2.default.createElement(_react2.default.Fragment, null,
           _react2.default.createElement(_core.CssBaseline, null),
           _react2.default.createElement(_core.ThemeProvider, { theme: theme },
             _react2.default.createElement(_core.Grid, { container: true, direction: 'column', style: { padding: 13 } },
-              _react2.default.createElement(_core.Typography, { variant: 'h3', color: 'primary', gutterBottom: true }, 'Form Automation'),
+              _react2.default.createElement(_core.Typography, {
+                  variant: 'h3',
+                  color: 'primary',
+                  className: 'title',
+                  gutterBottom: true }, 'Form Automation'),
 
 
 
@@ -43080,6 +43121,7 @@ App = function (_Component) {_inherits(App, _Component);
                   onSubmit: function onSubmit(event) {
                     _this4.handleSubmission(event);
                   } },
+
                 Object.keys(this.props.visibleTextInputs).map(function (key, index) {
                   return _this4.renderVisibleInput(
                   key,
@@ -43087,12 +43129,14 @@ App = function (_Component) {_inherits(App, _Component);
                   index);
 
                 }),
+
                 _react2.default.createElement(_core.Button, {
                     type: 'submit',
                     fullWidth: true,
                     variant: 'outlined',
                     color: 'primary' },
                   _react2.default.createElement(_core.Typography, { variant: 'h4', color: 'primary' }, 'Submit'))),
+
 
 
 
@@ -43122,7 +43166,9 @@ App = function (_Component) {_inherits(App, _Component);
 
 
 
+
               _react2.default.createElement(_core.Box, { item: true, display: 'flex', justifyContent: 'flex-end' },
+
 
 
 

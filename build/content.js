@@ -78,6 +78,17 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 var _webextensionPolyfill = __webpack_require__(1);var _webextensionPolyfill2 = _interopRequireDefault(_webextensionPolyfill);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 _webextensionPolyfill2.default.runtime.onMessage.addListener(async function (request) {
@@ -132,7 +143,16 @@ _webextensionPolyfill2.default.runtime.onMessage.addListener(async function (req
 //     document.getElementById('form-automation-extension'),
 //   );
 // });
-// import React from 'react';
+/*
+
+This is the Content
+
+runs on the current visible page
+
+adds event listeners that run on the current page
+commands and messages from the popup or background stored here
+
+*/ // import React from 'react';
 // import {render} from 'react-dom';
 // import {Provider} from 'react-redux';
 // import {Store} from 'webext-redux';
