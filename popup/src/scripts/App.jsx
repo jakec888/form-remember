@@ -96,31 +96,8 @@ class App extends Component {
     });
   }
 
-  renderVisibleInput(key, value, index) {
-    return (
-      <TextField
-        fullWidth
-        variant="outlined"
-        color="secondary"
-        margin="normal"
-        id="email"
-        name={key}
-        label={`${key.charAt(0).toUpperCase()}${key.slice(1)}`}
-        key={key}
-        value={value}
-        autoFocus={index === 0 ? true : false}
-        onChange={event => {
-          this.onHandleTextInputChange(event, key);
-        }}
-      />
-    );
-  }
-
   async handleSubmission(event) {
     event.preventDefault();
-    console.log('submitting');
-    console.log(this.props.data);
-    console.log(this.props.visibleTextInputs);
 
     // add visible input values in the hashmap
     let updatedData = this.props.data;
@@ -155,12 +132,31 @@ class App extends Component {
     element.click();
   }
 
-  importJSON() {
-    this.props.dispatch({
-      type: 'OPEN_IMPORT_JSON',
-    });
-  }
+  // importJSON() {
+  //   this.props.dispatch({
+  //     type: 'OPEN_IMPORT_JSON',
+  //   });
+  // }
 
+  renderVisibleInput(key, value, index) {
+    return (
+      <TextField
+        fullWidth
+        variant="outlined"
+        color="secondary"
+        margin="normal"
+        id="email"
+        name={key}
+        label={`${key.charAt(0).toUpperCase()}${key.slice(1)}`}
+        key={key}
+        value={value}
+        autoFocus={index === 0 ? true : false}
+        onChange={event => {
+          this.onHandleTextInputChange(event, key);
+        }}
+      />
+    );
+  }
   render() {
     return (
       <React.Fragment>
@@ -170,6 +166,7 @@ class App extends Component {
             <Typography variant="h3" color="primary" gutterBottom>
               Form Automation
             </Typography>
+
             <form
               onSubmit={event => {
                 this.handleSubmission(event);
@@ -191,51 +188,51 @@ class App extends Component {
                 </Typography>
               </Button>
             </form>
-            <CardContent>
-              <Typography variant="h6" color="primary">
-                Keyboard Shortcut
-              </Typography>
-              <Box
-                color="secondary"
-                borderColor="secondary"
-                border={1}
-                borderRadius="borderRadius"
-                style={{display: 'inline-block', margin: 0}}>
-                Cmd + Shift + O
-              </Box>
-            </CardContent>
 
-            <CardContent
+            <Box
+              item
               display="flex"
-              // flexDirection="row"
-              // justifyContent="space-evenly"
-            >
-              <Grid item xs={6}>
-                <Button
+              justifyContent="flex-end"
+              style={{
+                margin: '5px',
+              }}>
+              <Box>
+                <Box
                   color="secondary"
-                  onClick={() => {
-                    this.importJSON();
-                  }}
-                  // onClick={this.importJSON}
-                >
-                  <Typography variant="caption" display="block">
-                    Import
-                  </Typography>
-                </Button>
-                <input id="fileElem" type="file" style={{display: 'none'}} />
-              </Grid>
-              <Grid item xs={6}>
-                <Button
-                  color="secondary"
-                  onClick={() => {
-                    this.exportToJSON();
+                  borderColor="secondary"
+                  border={1}
+                  borderRadius="borderRadius"
+                  display="flex"
+                  justifyContent="center"
+                  style={{
+                    margin: 0,
+                    padding: '5px',
                   }}>
-                  <Typography variant="caption" display="block">
-                    Export
-                  </Typography>
-                </Button>
-              </Grid>
-            </CardContent>
+                  Keyboard Shortcut: Cmd + Shift + O
+                </Box>
+              </Box>
+            </Box>
+
+            <Box item display="flex" justifyContent="flex-end">
+              {/* <Button
+                color="secondary"
+                onClick={() => {
+                  this.importJSON();
+                }}>
+                <Typography variant="caption" display="block">
+                  Import
+                </Typography>
+              </Button> */}
+              <Button
+                color="secondary"
+                onClick={() => {
+                  this.exportToJSON();
+                }}>
+                <Typography variant="caption" display="block">
+                  Export
+                </Typography>
+              </Button>
+            </Box>
           </Grid>
         </ThemeProvider>
       </React.Fragment>

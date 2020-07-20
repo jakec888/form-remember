@@ -1,11 +1,11 @@
-import React from 'react';
-import {render} from 'react-dom';
-import {Provider} from 'react-redux';
-import {Store} from 'webext-redux';
+// import React from 'react';
+// import {render} from 'react-dom';
+// import {Provider} from 'react-redux';
+// import {Store} from 'webext-redux';
+
+// import App from './components/App';
 
 import browser from 'webextension-polyfill';
-
-import App from './components/App';
 
 browser.runtime.onMessage.addListener(async request => {
   if (request.command == 'IMPORT_JSON_FROM_CONTENT') {
@@ -32,10 +32,6 @@ browser.runtime.onMessage.addListener(async request => {
   }
 
   if (request.command == 'POST_ALL_VISIBLE_TEXT_INPUTS_NAME') {
-    console.log('POST_ALL_VISIBLE_TEXT_INPUTS_NAME');
-    console.log(request.data);
-    console.log(request.visibleTextInputs);
-
     let data = request.data;
     let visibleTextInputs = request.visibleTextInputs;
 
@@ -48,18 +44,18 @@ browser.runtime.onMessage.addListener(async request => {
   }
 });
 
-const proxyStore = new Store();
+// const proxyStore = new Store();
 
-const anchor = document.createElement('div');
-anchor.id = 'rcr-anchor';
+// const anchor = document.createElement('div');
+// anchor.id = 'form-automation-extension';
 
-document.body.insertBefore(anchor, document.body.childNodes[0]);
+// document.body.insertBefore(anchor, document.body.childNodes[0]);
 
-proxyStore.ready().then(() => {
-  render(
-    <Provider store={proxyStore}>
-      <App />
-    </Provider>,
-    document.getElementById('rcr-anchor'),
-  );
-});
+// proxyStore.ready().then(() => {
+//   render(
+//     <Provider store={proxyStore}>
+//       <App />
+//     </Provider>,
+//     document.getElementById('form-automation-extension'),
+//   );
+// });

@@ -10914,10 +10914,10 @@ function getBrowserAPI() {
 var _react = __webpack_require__(1);var _react2 = _interopRequireDefault(_react);
 var _reactDom = __webpack_require__(13);
 
-var _App = __webpack_require__(471);var _App2 = _interopRequireDefault(_App);
-
 var _webextRedux = __webpack_require__(532);
-var _reactRedux = __webpack_require__(249);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+var _reactRedux = __webpack_require__(249);
+
+var _App = __webpack_require__(471);var _App2 = _interopRequireDefault(_App);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 var proxyStore = new _webextRedux.Store();
 
@@ -43003,38 +43003,15 @@ App = function (_Component) {_inherits(App, _Component);
         type: 'UPDATE_VISIBLE_TEXT_INPUT',
         payload: { visibleTextInputs: updatedVisibleTextInputs } });
 
-    } }, { key: 'renderVisibleInput', value: function renderVisibleInput(
-
-    key, value, index) {var _this2 = this;
-      return (
-        _react2.default.createElement(_core.TextField, {
-          fullWidth: true,
-          variant: 'outlined',
-          color: 'secondary',
-          margin: 'normal',
-          id: 'email',
-          name: key,
-          label: '' + key.charAt(0).toUpperCase() + key.slice(1),
-          key: key,
-          value: value,
-          autoFocus: index === 0 ? true : false,
-          onChange: function onChange(event) {
-            _this2.onHandleTextInputChange(event, key);
-          } }));
-
-
     } }, { key: 'handleSubmission', value: async function handleSubmission(
 
-    event) {var _this3 = this;
+    event) {var _this2 = this;
       event.preventDefault();
-      console.log('submitting');
-      console.log(this.props.data);
-      console.log(this.props.visibleTextInputs);
 
       // add visible input values in the hashmap
       var updatedData = this.props.data;
       Object.keys(this.props.visibleTextInputs).forEach(function (name) {
-        updatedData.set(name, _this3.props.visibleTextInputs[name]);
+        updatedData.set(name, _this2.props.visibleTextInputs[name]);
       });
 
       // auto populate form
@@ -43062,14 +43039,33 @@ App = function (_Component) {_inherits(App, _Component);
       element.download = new Date().toISOString() + '.json';
       document.body.appendChild(element);
       element.click();
-    } }, { key: 'importJSON', value: function importJSON()
+    }
 
-    {
-      this.props.dispatch({
-        type: 'OPEN_IMPORT_JSON' });
+    // importJSON() {
+    //   this.props.dispatch({
+    //     type: 'OPEN_IMPORT_JSON',
+    //   });
+    // }
+  }, { key: 'renderVisibleInput', value: function renderVisibleInput(
+    key, value, index) {var _this3 = this;
+      return (
+        _react2.default.createElement(_core.TextField, {
+          fullWidth: true,
+          variant: 'outlined',
+          color: 'secondary',
+          margin: 'normal',
+          id: 'email',
+          name: key,
+          label: '' + key.charAt(0).toUpperCase() + key.slice(1),
+          key: key,
+          value: value,
+          autoFocus: index === 0 ? true : false,
+          onChange: function onChange(event) {
+            _this3.onHandleTextInputChange(event, key);
+          } }));
+
 
     } }, { key: 'render', value: function render()
-
     {var _this4 = this;
       return (
         _react2.default.createElement(_react2.default.Fragment, null,
@@ -43077,6 +43073,7 @@ App = function (_Component) {_inherits(App, _Component);
           _react2.default.createElement(_core.ThemeProvider, { theme: theme },
             _react2.default.createElement(_core.Grid, { container: true, direction: 'column', style: { padding: 13 } },
               _react2.default.createElement(_core.Typography, { variant: 'h3', color: 'primary', gutterBottom: true }, 'Form Automation'),
+
 
 
               _react2.default.createElement('form', {
@@ -43100,47 +43097,47 @@ App = function (_Component) {_inherits(App, _Component);
 
 
 
-              _react2.default.createElement(_core.CardContent, null,
-                _react2.default.createElement(_core.Typography, { variant: 'h6', color: 'primary' }, 'Keyboard Shortcut'),
+
+              _react2.default.createElement(_core.Box, {
+                  item: true,
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                  style: {
+                    margin: '5px' } },
+
+                _react2.default.createElement(_core.Box, null,
+                  _react2.default.createElement(_core.Box, {
+                      color: 'secondary',
+                      borderColor: 'secondary',
+                      border: 1,
+                      borderRadius: 'borderRadius',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      style: {
+                        margin: 0,
+                        padding: '5px' } }, 'Keyboard Shortcut: Cmd + Shift + O'))),
 
 
-                _react2.default.createElement(_core.Box, {
+
+
+
+
+              _react2.default.createElement(_core.Box, { item: true, display: 'flex', justifyContent: 'flex-end' },
+
+
+
+
+
+
+
+
+
+                _react2.default.createElement(_core.Button, {
                     color: 'secondary',
-                    borderColor: 'secondary',
-                    border: 1,
-                    borderRadius: 'borderRadius',
-                    style: { display: 'inline-block', margin: 0 } }, 'Cmd + Shift + O')),
-
-
-
-
-              _react2.default.createElement(_core.CardContent, {
-                  display: 'flex'
-                  // flexDirection="row"
-                  // justifyContent="space-evenly"
-                },
-                _react2.default.createElement(_core.Grid, { item: true, xs: 6 },
-                  _react2.default.createElement(_core.Button, {
-                      color: 'secondary',
-                      onClick: function onClick() {
-                        _this4.importJSON();
-                      }
-                      // onClick={this.importJSON}
-                    },
-                    _react2.default.createElement(_core.Typography, { variant: 'caption', display: 'block' }, 'Import')),
-
-
-
-                  _react2.default.createElement('input', { id: 'fileElem', type: 'file', style: { display: 'none' } })),
-
-                _react2.default.createElement(_core.Grid, { item: true, xs: 6 },
-                  _react2.default.createElement(_core.Button, {
-                      color: 'secondary',
-                      onClick: function onClick() {
-                        _this4.exportToJSON();
-                      } },
-                    _react2.default.createElement(_core.Typography, { variant: 'caption', display: 'block' }, 'Export'))))))));
-
+                    onClick: function onClick() {
+                      _this4.exportToJSON();
+                    } },
+                  _react2.default.createElement(_core.Typography, { variant: 'caption', display: 'block' }, 'Export')))))));
 
 
 

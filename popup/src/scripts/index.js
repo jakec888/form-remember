@@ -1,10 +1,10 @@
 import React from 'react';
 import {render} from 'react-dom';
 
-import App from './components/app/App';
-
 import {Store} from 'webext-redux';
 import {Provider} from 'react-redux';
+
+import App from './App';
 
 const proxyStore = new Store();
 
