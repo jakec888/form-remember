@@ -2,13 +2,24 @@
 
 automate autofill text inputs on specific pages
 
+# Instillation
+
+```
+git clone https://github.com/jakec888/form-automation-extension.git
+cd form-automation-extension
+npm install
+```
+
+be sure to use node version 11
+
 # Todo
 
-- create hashmap to insert input tag names with the text value √
-- add keyboard shortcut √
-- material ui √
-- import hashmap as a json file
-  -- browser API not passing messages from webpage/tab to background
-- export hashmap into json file √
-- composition, composition, composition
-- publish
+- [x] create hashmap to insert input tag names with the text value √
+- [x] add keyboard shortcut √
+- [x] material ui √
+- [ ] import hashmap as a json file (in progress)
+  - [ ] browser API not passing messages from webpage/tab to background
+- [x] export hashmap into json file √
+- [ ] publish
+  - [ ] firefox (in review)
+  - [ ] chrome

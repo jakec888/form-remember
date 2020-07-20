@@ -1,3 +1,11 @@
+/*
+
+This is the Content
+
+runs on the current visible page
+
+*/
+
 // import React from 'react';
 // import {render} from 'react-dom';
 // import {Provider} from 'react-redux';

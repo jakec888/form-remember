@@ -1,3 +1,11 @@
+/*
+
+This is the Popup
+
+runs when the extension icon is clicked
+
+*/
+
 import React from 'react';
 import {render} from 'react-dom';
 

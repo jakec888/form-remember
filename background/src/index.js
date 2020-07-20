@@ -1,3 +1,13 @@
+/*
+
+This is the Background
+
+runs in the background and where persistent data is stored
+
+using background to hold our single source of truth (redux) data store
+
+*/
+
 import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 

@@ -31,9 +31,8 @@ class App extends Component {
     super(props);
   }
 
+  // on popup/extension open/click
   async componentDidMount() {
-    console.log('opened popup');
-
     // create 'FormAutomation' hashmap if not in local storage
     !localStorage.getItem('FormAutomation') &&
       localStorage.setItem(
@@ -66,9 +65,12 @@ class App extends Component {
     window.scrollTo(0, 0);
   }
 
+  // view all visible text inputs on the page
   async postAllVisibleTextInputs(data, visibleTextInputs) {
+    // find current tab/window
     const tabs = await browser.tabs.query({currentWindow: true, active: true});
 
+    // get current filled hashmap and insert values into the page's form
     await browser.tabs.sendMessage(tabs[0].id, {
       command: 'POST_ALL_VISIBLE_TEXT_INPUTS_NAME',
       data,
@@ -76,9 +78,12 @@ class App extends Component {
     });
   }
 
+  // view all visible text inputs on the page
   async getAllVisibleTextInputs() {
+    // find current tab/window
     const tabs = await browser.tabs.query({currentWindow: true, active: true});
 
+    // send message to the background to run command on the current window/tab
     let visibleTextInputs = await browser.tabs.sendMessage(tabs[0].id, {
       command: 'GET_ALL_VISIBLE_TEXT_INPUTS_NAME',
     });
@@ -86,16 +91,22 @@ class App extends Component {
     return visibleTextInputs;
   }
 
+  // handle input value for page's visible text input
   onHandleTextInputChange(event, key) {
+    // create copy of the visible text input to avoid mutating state directly
     let updatedVisibleTextInputs = this.props.visibleTextInputs;
+
+    // find the key in the hashmap and insert new value
     updatedVisibleTextInputs[key] = event.target.value;
 
+    // update redux
     this.props.dispatch({
       type: 'UPDATE_VISIBLE_TEXT_INPUT',
       payload: {visibleTextInputs: updatedVisibleTextInputs},
     });
   }
 
+  // submit all filled in values for visible text input and save to persistent memory
   async handleSubmission(event) {
     event.preventDefault();
 
@@ -117,18 +128,30 @@ class App extends Component {
       JSON.stringify(Array.from(updatedData)),
     );
 
-    console.log('closing!');
+    // close popup/extension
     window.close();
   }
 
+  // export current hashmap as a json and delete local storage data
   exportToJSON() {
+    // create a sudo element to store data
     const element = document.createElement('a');
+
+    // create file
     const file = new Blob([JSON.stringify(Array.from(this.props.data))], {
       type: 'text/json',
     });
+
+    // create downloadable url to file
     element.href = URL.createObjectURL(file);
+
+    // create file name using current date and time
     element.download = `${new Date().toISOString()}.json`;
+
+    // append element to document
     document.body.appendChild(element);
+
+    // download element
     element.click();
   }
 
@@ -138,6 +161,7 @@ class App extends Component {
   //   });
   // }
 
+  // render visible text input
   renderVisibleInput(key, value, index) {
     return (
       <TextField
@@ -157,13 +181,18 @@ class App extends Component {
       />
     );
   }
+
   render() {
     return (
       <React.Fragment>
         <CssBaseline />
         <ThemeProvider theme={theme}>
           <Grid container direction="column" style={{padding: 13}}>
-            <Typography variant="h3" color="primary" gutterBottom>
+            <Typography
+              variant="h3"
+              color="primary"
+              className="title"
+              gutterBottom>
               Form Automation
             </Typography>
 
@@ -171,6 +200,7 @@ class App extends Component {
               onSubmit={event => {
                 this.handleSubmission(event);
               }}>
+              {/* iterate over all visible inputs */}
               {Object.keys(this.props.visibleTextInputs).map((key, index) => {
                 return this.renderVisibleInput(
                   key,
@@ -178,6 +208,7 @@ class App extends Component {
                   index,
                 );
               })}
+              {/* submit form */}
               <Button
                 type="submit"
                 fullWidth
@@ -189,6 +220,7 @@ class App extends Component {
               </Button>
             </form>
 
+            {/* keyboard shortcut */}
             <Box
               item
               display="flex"
@@ -213,7 +245,9 @@ class App extends Component {
               </Box>
             </Box>
 
+            {/* handle personal data */}
             <Box item display="flex" justifyContent="flex-end">
+              {/* In Progress */}
               {/* <Button
                 color="secondary"
                 onClick={() => {
