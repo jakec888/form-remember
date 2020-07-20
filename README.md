@@ -4,7 +4,7 @@ automate autofill text inputs on specific pages
 
 # Instillation
 
-Firefox([https://addons.mozilla.org/en-US/firefox/addon/form-automation-extension/](https://addons.mozilla.org/en-US/firefox/addon/form-automation-extension/))
+Firefox([https://addons.mozilla.org/en-US/firefox/addon/form-automation-extension/](https://addons.mozilla.org/en-US/firefox/addon/form-automation-extension/)) (under review)
 
 # Instillation (Development)
 
