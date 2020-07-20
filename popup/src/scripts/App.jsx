@@ -153,6 +153,10 @@ class App extends Component {
 
     // download element
     element.click();
+
+    // delete after downloading hashmap
+    // uncomment when 'import json' is finished/added
+    // localStorage.removeItem('FormAutomation');
   }
 
   // importJSON() {

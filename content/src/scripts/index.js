@@ -4,6 +4,9 @@ This is the Content
 
 runs on the current visible page
 
+adds event listeners that run on the current page
+commands and messages from the popup or background stored here
+
 */
 
 // import React from 'react';
