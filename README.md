@@ -4,7 +4,7 @@ automate autofill text inputs on specific pages
 
 # Instillation
 
-Firefox([https://addons.mozilla.org/en-US/firefox/addon/form-automation-extension/](https://addons.mozilla.org/en-US/firefox/addon/form-automation-extension/)) (under review)
+Firefox([https://addons.mozilla.org/en-US/firefox/addon/form-automation-extension/](https://addons.mozilla.org/en-US/firefox/addon/form-automation-extension/))
 
 # Walk-Throughs
 
@@ -35,6 +35,7 @@ Firefox([https://addons.mozilla.org/en-US/firefox/addon/form-automation-extensio
 ```
 git clone https://github.com/jakec888/form-automation-extension.git
 cd form-automation-extension
+nvm use v11
 npm install
 ```
 
