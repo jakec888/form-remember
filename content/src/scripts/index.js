@@ -9,12 +9,12 @@ commands and messages from the popup or background stored here
 
 */
 
-// import React from 'react';
-// import {render} from 'react-dom';
-// import {Provider} from 'react-redux';
-// import {Store} from 'webext-redux';
+import React from 'react';
+import {render} from 'react-dom';
+import {Provider} from 'react-redux';
+import {Store} from 'webext-redux';
 
-// import App from './components/App';
+import App from './components/App';
 
 import browser from 'webextension-polyfill';
 
@@ -55,18 +55,18 @@ browser.runtime.onMessage.addListener(async request => {
   }
 });
 
-// const proxyStore = new Store();
+const proxyStore = new Store();
 
-// const anchor = document.createElement('div');
-// anchor.id = 'form-automation-extension';
+const anchor = document.createElement('div');
+anchor.id = 'form-automation-extension';
 
-// document.body.insertBefore(anchor, document.body.childNodes[0]);
+document.body.insertBefore(anchor, document.body.childNodes[0]);
 
-// proxyStore.ready().then(() => {
-//   render(
-//     <Provider store={proxyStore}>
-//       <App />
-//     </Provider>,
-//     document.getElementById('form-automation-extension'),
-//   );
-// });
+proxyStore.ready().then(() => {
+  render(
+    <Provider store={proxyStore}>
+      <App />
+    </Provider>,
+    document.getElementById('form-automation-extension'),
+  );
+});
