@@ -66,7 +66,7 @@ class App extends Component {
 
     reader.readAsText(file);
 
-    // this.handleClose();
+    this.handleClose();
   }
 
   render() {
