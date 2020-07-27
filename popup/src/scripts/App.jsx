@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {connect} from 'react-redux';
 
 import browser from 'webextension-polyfill';
@@ -188,7 +188,7 @@ class App extends Component {
 
   render() {
     return (
-      <React.Fragment>
+      <Fragment>
         <CssBaseline />
         <ThemeProvider theme={theme}>
           <Grid container direction="column" style={{padding: 13}}>
@@ -273,7 +273,7 @@ class App extends Component {
             </Box>
           </Grid>
         </ThemeProvider>
-      </React.Fragment>
+      </Fragment>
     );
   }
 }
