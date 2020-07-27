@@ -43,12 +43,13 @@ be sure to use node version 11
 
 # Todo
 
-- [x] create hashmap to insert input tag names with the text value √
-- [x] add keyboard shortcut √
-- [x] material ui √
+- [x] create hashmap to insert input tag names with the text value
+- [x] add keyboard shortcut
+- [x] material ui
 - [ ] import hashmap as a json file (in progress)
   - [ ] browser API not passing messages from webpage/tab to background
-- [x] export hashmap into json file √
+- [x] export hashmap into json file
 - [ ] publish
-  - [ ] firefox (in review)
+  - [x] firefox (in review)
   - [ ] chrome
+- [ ] refactor
