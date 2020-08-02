@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import {DropzoneDialog} from 'material-ui-dropzone';
 
-import browser from 'webextension-polyfill';
+import {browser as myBrowser} from 'webextension-polyfill';
 
 class App extends Component {
   constructor(props) {
@@ -24,26 +24,29 @@ class App extends Component {
     });
   }
 
-  async saveFile(data) {
+  saveFile(data) {
     console.log('saveFile:');
     console.log(data);
 
-    console.log('browser');
-    console.log(browser);
+    // console.log('browser');
+    // console.log(browser);
+    console.log('myBrowser');
+    console.log(myBrowser);
 
     console.log('tabs');
-    const tabs = await browser.tabs.query({
+    const tabs = myBrowser.tabs.query({
       currentWindow: true,
       active: true,
     });
-    await console.log(tabs);
+    console.log(tabs);
 
-    await console.log('sending message');
-    await browser.tabs.sendMessage(tabs[0].id, {
+    console.log('sending message');
+    myBrowser.tabs.sendMessage(tabs[0].id, {
       command: 'IMPORT_JSON_FROM_CONTENT',
       data,
     });
-    await console.log('message received');
+
+    console.log('message received');
   }
 
   handleSave(event, saveFile) {
@@ -63,6 +66,9 @@ class App extends Component {
 
       console.log('saving');
       saveFile(reader.result);
+      // localStorage.setItem('FormAutomation', reader.result);
+
+      // alert('Data Saved!');
     };
 
     console.log('saving file');

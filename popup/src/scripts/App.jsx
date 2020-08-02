@@ -159,11 +159,11 @@ class App extends Component {
     // localStorage.removeItem('FormAutomation');
   }
 
-  // importJSON() {
-  //   this.props.dispatch({
-  //     type: 'OPEN_IMPORT_JSON',
-  //   });
-  // }
+  importJSON() {
+    this.props.dispatch({
+      type: 'OPEN_IMPORT_JSON',
+    });
+  }
 
   // render visible text input
   renderVisibleInput(key, value, index) {
@@ -197,7 +197,7 @@ class App extends Component {
               color="primary"
               className="title"
               gutterBottom>
-              Form Automation
+              Form Automation (DEV)
             </Typography>
 
             <form
@@ -252,7 +252,7 @@ class App extends Component {
             {/* handle personal data */}
             <Box item display="flex" justifyContent="flex-end">
               {/* In Progress */}
-              {/* <Button
+              <Button
                 color="secondary"
                 onClick={() => {
                   this.importJSON();
@@ -260,7 +260,7 @@ class App extends Component {
                 <Typography variant="caption" display="block">
                   Import
                 </Typography>
-              </Button> */}
+              </Button>
               <Button
                 color="secondary"
                 onClick={() => {
