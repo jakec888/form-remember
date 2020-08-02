@@ -53,6 +53,7 @@ class App extends Component {
 
     let reader = new FileReader();
 
+    // async
     reader.onload = function (evt) {
       console.log('evt.target.result');
       console.log(evt.target.result);
@@ -64,6 +65,7 @@ class App extends Component {
       saveFile(reader.result);
     };
 
+    console.log('saving file');
     reader.readAsText(file);
 
     this.handleClose();

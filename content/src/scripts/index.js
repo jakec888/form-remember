@@ -21,6 +21,7 @@ import browser from 'webextension-polyfill';
 browser.runtime.onMessage.addListener(async request => {
   if (request.command == 'IMPORT_JSON_FROM_CONTENT') {
     console.log('IMPORT_JSON_FROM_CONTENT');
+    console.log(request.data);
 
     localStorage.setItem('FormAutomation', request.data);
   }
